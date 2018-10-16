@@ -1,11 +1,31 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class BeerList extends Component{
-render(){
-    return (
-        <h1>Beer List</h1>
-    )
-}
+import { fetchBeers } from '../actions';
+
+class BeerList extends Component {
+
+    componentDidMount() {
+        this.props.fetchBeers();
+    }
+
+    render() {
+        if(!this.props.beers){
+            return (
+                <div>Loading...</div>
+            )
+        }
+
+        return (
+            <li>{this.props.beers.beerName}</li>
+        )
+    }
 }
 
-export default BeerList;
+function mapStateToProps(state) {
+    return { beers: state.beers.data }
+}
+
+
+
+export default connect(mapStateToProps, { fetchBeers })(BeerList);
