@@ -1,10 +1,17 @@
-import { FETCH_BEER } from '../actions';
+import { FETCH_BEER, UPDATE_BEER } from '../actions';
+import _ from 'lodash';
 
 export default function(state = {}, action){
     switch(action.type){
         case FETCH_BEER: {
-            return action.payload
+            return _.mapKeys(action.payload.data, 'id')
         }
+
+        case UPDATE_BEER: {
+            return _.mapKeys(action.payload.data, 'id')
+        }
+
+        
         default: return state
     }
 }
