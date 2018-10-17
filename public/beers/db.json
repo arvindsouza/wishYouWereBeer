@@ -2,14 +2,14 @@
   "beers": [
     {
       "beerName": "Heineken",
-      "rating": 3,
+      "rating": 4,
       "id": 1,
       "desc": "Pretty Good"
     },
     {
       "id": 2,
       "beerName": "Kingfisher",
-      "rating": 4,
+      "rating": 1,
       "desc": "The Worst"
     }
   ]

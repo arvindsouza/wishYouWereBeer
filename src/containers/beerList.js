@@ -11,8 +11,10 @@ class BeerList extends Component {
         super(props);
 
         this.state = {
-            thebeers: this.props.beers
+            showDesc: false
         }
+
+        this.showDesc = this.showDesc.bind(this);
     }
 
     componentDidMount() {
@@ -26,15 +28,24 @@ class BeerList extends Component {
         return true;
     }
 
+    showDesc(data){
+        this.setState({
+            showDesc: data
+        })
+
+        console.log(data);
+    }
+
     returnBeerList() {
 
         return _.map(this.props.beers, beer => {
             
             return (
-                <li className='list-group-item' key={beer.id}>{beer.beerName}
-                < RatingsComponent beerRating = {beer.rating}  beerId={beer.id}/>
-                </li>
-
+                <tr  key={beer.id}  onClick = {(data) => {this.showDesc(beer.id)}}>
+                <td>{beer.beerName}</td>
+                <td className='theRating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer.id}/></td>
+                <td >{beer.desc}</td>
+                </tr>
             )
         })
     }
@@ -52,9 +63,18 @@ class BeerList extends Component {
                     <button className='btn btn-primary' >Add New Beer</button>
                 </div>
 
-                <ul className='list-group' >
-                    {this.returnBeerList()}
-                </ul>
+                <table className='table table-hover' >
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Rating</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {this.returnBeerList()}
+                </tbody>
+                </table>
             </div>
         )
     }

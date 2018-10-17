@@ -6,9 +6,7 @@ import BeerList from './containers/beerList';
 class App extends Component {
   render() {
     return (
-      <div className="App">
       < BeerList />
-      </div>
     );
   }
 }
