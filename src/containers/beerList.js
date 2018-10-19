@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 import { fetchBeers, updateBeer } from '../actions';
 import RatingsComponent, {ratingChange} from '../components/ratings';
 
 class BeerList extends Component {
-
-    constructor(props){
-        super(props);
-
-        this.state = {
-            showDesc: false
-        }
-
-        this.showDesc = this.showDesc.bind(this);
-    }
 
     componentDidMount() {
         this.props.fetchBeers();
@@ -28,22 +19,15 @@ class BeerList extends Component {
         return true;
     }
 
-    showDesc(data){
-        this.setState({
-            showDesc: data
-        })
-
-        console.log(data);
-    }
 
     returnBeerList() {
 
         return _.map(this.props.beers, beer => {
             
             return (
-                <tr  key={beer.id}  onClick = {(data) => {this.showDesc(beer.id)}}>
+                <tr  key={beer._id} >
                 <td>{beer.beerName}</td>
-                <td className='theRating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer.id}/></td>
+                <td className='theRating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer._id}/></td>
                 <td >{beer.desc}</td>
                 </tr>
             )
@@ -51,6 +35,8 @@ class BeerList extends Component {
     }
 
     render() {
+        console.log(this.props.beers);
+
         if (!this.props.beers) {
             return (
                 <div>Loading...</div>
@@ -60,7 +46,7 @@ class BeerList extends Component {
         return (
             <div className='listContainer'>
                 <div className='text-xs-right'>
-                    <button className='btn btn-primary' >Add New Beer</button>
+                    <Link className='btn btn-primary' to='/beers/new'>Add New Beer</Link>
                 </div>
 
                 <table className='table table-hover' >
