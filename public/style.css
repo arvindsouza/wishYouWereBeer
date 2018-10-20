@@ -15,11 +15,20 @@ body{
     padding: 20px 0px;
 }
 
+img{
+    max-height:100px;
+}
+
+.imageDiv{
+    height: 100px;
+}
+
 
 .Container{
     padding: 50px 30px;
     background-color: #f7cf41;
     border-radius: 5px;
+    overflow-y: scroll;
 }
 
 

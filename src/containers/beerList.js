@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { fetchBeers, updateBeer, deleteBeer, hasFetched} from '../actions';
 import RatingsComponent from '../components/ratings';
+import ImageComponent from '../components/imageComponent';
 
 class BeerList extends Component {
 
@@ -20,10 +21,9 @@ class BeerList extends Component {
     returnBeerList() {
  
         return _.map(this.props.beers, beer => {
-            
             return (
                 <tr  key={beer.id} >
-                <td></td>
+                <td><ImageComponent beer = {beer} /></td>
                 <td>{beer.data.beerName}</td>
                 <td className='theRating'>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></td>
                 <td >{beer.data.desc}</td>

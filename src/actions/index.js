@@ -1,4 +1,3 @@
-import axios from 'axios';
 import firebase from 'firebase';
 
 export const FETCH_BEER = 'FETCH_BEER';
@@ -7,6 +6,7 @@ export const POST_BEER = 'POST_BEER';
 export const DELETE_BEER = 'DELETE_BEER';
 
 export var hasFetched = false;
+export var canRetrieve = false;
 
 var config = {
     apiKey: "AIzaSyD-HLeHtsu17UlatrJZaZQlGHBVdGXXDuk",
@@ -23,35 +23,35 @@ db.settings({
     timestampsInSnapshots: true
 })
 
+var storage = firebase.storage().ref();
+
 export function fetchBeers() {
-    hasFetched = true;
-    var data =  db.collection('Beers').get().then((snapshot) => {
-   return snapshot.docs.map((doc) => {
-                 return { "id":doc.id,  "data":doc.data()};
-            })
+    var data = db.collection('Beers').get().then((snapshot) => {
+        return snapshot.docs.map((doc) => {
+            return { "id": doc.id, "data": doc.data() };
         })
+    })
 
     return (dispatch) => {
         hasFetched = true;
- dispatch({
+        dispatch({
             type: FETCH_BEER,
             payload: data
         })
-    
-
     }
 }
 
 
 export function updateBeer(id, rating) {
-
-   // const request = axios.post(`${url}/updateBeer`, { "id": id, "rating": rating });
-   const request = db.collection('Beers').doc(id).update({"rating": rating});
+    db.collection('Beers').doc(id).update({ "rating": rating });
 }
 
-export function addNewBeer(data, callback) {
-     //axios.post(`${url}/addBeer`, data).then(() => callback());
-     const request =  db.collection('Beers').doc().set(data).then(() => callback());
+export function addNewBeer(data, file, callback) {
+    const request = db.collection('Beers').doc().set(data).then(() => callback());
+
+    var refA = storage.child(data.img);
+
+    refA.put(file);
 
     return {
         type: POST_BEER,
@@ -60,9 +60,7 @@ export function addNewBeer(data, callback) {
 }
 
 export function deleteBeer(id) {
-   // axios.post(`${url}/deleteBeer`, { "id": id });
-
-   db.collection('Beers').doc(id).delete();
+    db.collection('Beers').doc(id).delete();
 
     return {
         type: DELETE_BEER,
