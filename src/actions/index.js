@@ -9,7 +9,6 @@ export var hasFetched = false;
 export var canRetrieve = false;
 
 var config = {
-    apiKey: "AIzaSyD-HLeHtsu17UlatrJZaZQlGHBVdGXXDuk",
     authDomain: "wishyouwerebeer-95c98.firebaseapp.com",
     databaseURL: "https://wishyouwerebeer-95c98.firebaseio.com",
     projectId: "wishyouwerebeer-95c98",
