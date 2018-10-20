@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Ratings from 'react-ratings-declarative';
 
@@ -18,9 +18,9 @@ class RatingsComponent extends Component {
         this.changeRating = this.changeRating.bind(this);
     }
 
-    changeRating(id, rating){
+    changeRating(id, rating) {
         this.props.updateBeer(id, parseInt(rating));
- ratingChange = true;
+        ratingChange = true;
         this.setState({
             rating: parseInt(rating)
         })
@@ -28,7 +28,7 @@ class RatingsComponent extends Component {
 
     render() {
         return (
-            <Ratings rating={ parseInt(this.state.rating)}
+            <Ratings rating={parseInt(this.state.rating)}
                 widgetRatedColors="blue"
                 changeRating={(rating) => { this.changeRating(this.props.beerId, rating) }}>
                 <Ratings.Widget />

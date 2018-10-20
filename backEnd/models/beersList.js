@@ -12,6 +12,9 @@ var beerSchema = mongoose.Schema({
     desc: {
         type: String,
         required: true
+    },
+    img: {
+        type: String
     }
 })
 
@@ -27,4 +30,8 @@ module.exports.updateBeer = function(id, rating, callback){
 
 module.exports.addBeer = function(newBeer, callback){
     newBeer.save(callback);
+}
+
+module.exports.deleteBeer = function(id, callback){
+    beer.deleteOne({_id:id}, callback);
 }

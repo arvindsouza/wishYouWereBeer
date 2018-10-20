@@ -1,38 +1,81 @@
 import axios from 'axios';
-import Firebase from 'firebase';
+import firebase from 'firebase';
 
 export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
 export const POST_BEER = 'POST_BEER';
+export const DELETE_BEER = 'DELETE_BEER';
 
+export var hasFetched = false;
+
+var config = {
+    apiKey: "AIzaSyD-HLeHtsu17UlatrJZaZQlGHBVdGXXDuk",
+    authDomain: "wishyouwerebeer-95c98.firebaseapp.com",
+    databaseURL: "https://wishyouwerebeer-95c98.firebaseio.com",
+    projectId: "wishyouwerebeer-95c98",
+    storageBucket: "wishyouwerebeer-95c98.appspot.com",
+    messagingSenderId: "106860179355"
+}
+firebase.initializeApp(config);
 const url = 'http://localhost:4200/beers'
+//const firePost = firebase.database().ref('Beers/')
 
-const fireUpload = new Firebase('https://wishyouwerebeer-2c96c.firebaseio.com/Beers.json');
+const db = firebase.firestore();
+db.settings({
+    timestampsInSnapshots: true
+})
 
-export function fetchBeers(){
+export function fetchBeers() {
+    hasFetched = true;
+    var data =  db.collection('Beers').get().then((snapshot) => {
+   return snapshot.docs.map((doc) => {
+                 return { "id":doc.id,  "data":doc.data()};
+            })
+        })
 
-    const request = axios.get(`${url}/showList`);
-    return{
-        type: FETCH_BEER,
-        payload: request
+    return (dispatch) => {
+        hasFetched = true;
+ dispatch({
+            type: FETCH_BEER,
+            payload: data
+        })
+    
+
     }
 }
 
-export function updateBeer(id, rating){
+/*  return{
+      type: FETCH_BEER,
+      payload: request
+  }
+  
+}*/
 
-    const request = axios.post(`${url}/updateBeer`, {"id": id, "rating": rating});
+export function updateBeer(id, rating) {
 
-    return{
+    const request = axios.post(`${url}/updateBeer`, { "id": id, "rating": rating });
+
+    return {
         type: UPDATE_BEER,
         payload: request
     }
 }
 
-export function addNewBeer(data, callback){
+export function addNewBeer(data, callback) {
+    console.log(data);
     const request = axios.post(`${url}/addBeer`, data).then(() => callback());
 
     return {
         type: POST_BEER,
         payload: request
+    }
+}
+
+export function deleteBeer(id) {
+    axios.post(`${url}/deleteBeer`, { "id": id });
+
+    return {
+        type: DELETE_BEER,
+        payload: id
     }
 }

@@ -20,12 +20,6 @@ mongoose.connection.on('connected', ()=>{
 })
 
 //CORS
-/* server.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-}); */
-
 server.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
@@ -38,7 +32,7 @@ server.use(bodyParser.json(
 ));
 
 //Set static folder
-//server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, 'public')));
 
 
 //Routes

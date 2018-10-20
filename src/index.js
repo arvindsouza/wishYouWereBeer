@@ -9,11 +9,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import promise from 'redux-promise';
 import reducers from './reducers';
 import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 
 import BeerList from './containers/beerList';
 import AddNew from './containers/addNew';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promise, thunk)(createStore);
 
 ReactDOM.render(<Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>

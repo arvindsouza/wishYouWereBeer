@@ -8,8 +8,8 @@ import { debug } from 'util';
 class AddNew extends Component {
 
     renderField(field) {
-         const {meta: {touched, error}} = field;
-         const className = `form-group ${touched && error ? 'has-danger': ''}`
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`
 
         return (
             <div className={className} >
@@ -17,15 +17,26 @@ class AddNew extends Component {
                 {field.belowLabel ? <label>{field.belowLabel}</label> : null}
                 {field.label === 'Rating' ? <input type='number' className='form-control' {...field.input} /> :
                     <input type='text' className='form-control' {...field.input} />}
-                <div className='text-help' >{touched ? error: '' }</div>
+                <div className='text-help' >{touched ? error : ''}</div>
             </div>
         );
     }
 
+    renderImgUpload(field) {
+        delete field.input.value;
+
+        return (
+            <div>
+                <label>{field.label}</label>
+                <input type='file'{...field.input} />
+            </div>
+        )
+    }
+
     onSubmit(values) {
-        console.log(values);
+        console.log(values.img);
         this.props.addNewBeer(values, () => {
-            this.props.history.push('/beers');
+          //  this.props.history.push('/beers');
         });
     }
 
@@ -53,6 +64,12 @@ class AddNew extends Component {
                         label='Description'
                         name='desc'
                         component={this.renderField}
+                    />
+
+                    <Field
+                        label='image'
+                        name='img'
+                        component={this.renderImgUpload}
                     />
 
                     <button className='btn btn-primary' type='submit'>Submit</button>

@@ -3,58 +3,79 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
-import { fetchBeers, updateBeer } from '../actions';
-import RatingsComponent, {ratingChange} from '../components/ratings';
+import { fetchBeers, updateBeer, deleteBeer, hasFetched} from '../actions';
+import RatingsComponent from '../components/ratings';
 
 class BeerList extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            theList: [{}]
+        }
+    }
 
     componentDidMount() {
         this.props.fetchBeers();
     }
 
-    shouldComponentUpdate(){
-        if(ratingChange)
-        return false;
-        else
-        return true;
+    componentWillReceiveProps(nextProps){
+        if(this.props.beers !== nextProps.beers)
+        {
+            this.setState({
+                theList: nextProps.beers
+            })
+        }
+    }
+ 
+
+    onDelete(beerid, beer){
+        console.log(this.props.beers);
+        this.props.deleteBeer(beerid);
     }
 
 
     returnBeerList() {
-
+ 
         return _.map(this.props.beers, beer => {
             
             return (
-                <tr  key={beer._id} >
-                <td>{beer.beerName}</td>
-                <td className='theRating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer._id}/></td>
-                <td >{beer.desc}</td>
+                <tr  key={beer.id} >
+                <td></td>
+                <td>{beer.data.beerName}</td>
+                <td className='theRating'>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></td>
+                <td >{beer.data.desc}</td>
+                <td><button className='btn btn-danger' onClick={this.onDelete.bind(this, beer.data.id, beer.data )}>Delete</button></td>
                 </tr>
             )
         })
     }
 
-    render() {
-        console.log(this.props.beers);
+    onLink(){
+        hasFetched = false;
+    }
 
-        if (!this.props.beers) {
+    render() {
+        if (!hasFetched) {
             return (
                 <div>Loading...</div>
             )
         }
-        
         return (
             <div className='listContainer'>
                 <div className='text-xs-right'>
-                    <Link className='btn btn-primary' to='/beers/new'>Add New Beer</Link>
+                    <Link className='btn btn-primary' onClick={this.onLink.bind(this)}  to='/beers/new'>Add New Beer</Link>
                 </div>
 
                 <table className='table table-hover' >
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Rating</th>
                         <th>Description</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,4 +93,4 @@ function mapStateToProps(state) {
 
 
 
-export default connect(mapStateToProps, { fetchBeers, updateBeer })(BeerList);
+export default connect(mapStateToProps, { fetchBeers, updateBeer, deleteBeer })(BeerList);
