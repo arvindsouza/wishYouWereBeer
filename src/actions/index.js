@@ -17,8 +17,6 @@ var config = {
     messagingSenderId: "106860179355"
 }
 firebase.initializeApp(config);
-const url = 'http://localhost:4200/beers'
-//const firePost = firebase.database().ref('Beers/')
 
 const db = firebase.firestore();
 db.settings({
@@ -44,26 +42,16 @@ export function fetchBeers() {
     }
 }
 
-/*  return{
-      type: FETCH_BEER,
-      payload: request
-  }
-  
-}*/
 
 export function updateBeer(id, rating) {
 
-    const request = axios.post(`${url}/updateBeer`, { "id": id, "rating": rating });
-
-    return {
-        type: UPDATE_BEER,
-        payload: request
-    }
+   // const request = axios.post(`${url}/updateBeer`, { "id": id, "rating": rating });
+   const request = db.collection('Beers').doc(id).update({"rating": rating});
 }
 
 export function addNewBeer(data, callback) {
-    console.log(data);
-    const request = axios.post(`${url}/addBeer`, data).then(() => callback());
+     //axios.post(`${url}/addBeer`, data).then(() => callback());
+     const request =  db.collection('Beers').doc().set(data).then(() => callback());
 
     return {
         type: POST_BEER,
@@ -72,7 +60,9 @@ export function addNewBeer(data, callback) {
 }
 
 export function deleteBeer(id) {
-    axios.post(`${url}/deleteBeer`, { "id": id });
+   // axios.post(`${url}/deleteBeer`, { "id": id });
+
+   db.collection('Beers').doc(id).delete();
 
     return {
         type: DELETE_BEER,

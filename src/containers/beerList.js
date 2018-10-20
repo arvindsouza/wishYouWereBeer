@@ -8,30 +8,11 @@ import RatingsComponent from '../components/ratings';
 
 class BeerList extends Component {
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            theList: [{}]
-        }
-    }
-
     componentDidMount() {
         this.props.fetchBeers();
     }
 
-    componentWillReceiveProps(nextProps){
-        if(this.props.beers !== nextProps.beers)
-        {
-            this.setState({
-                theList: nextProps.beers
-            })
-        }
-    }
- 
-
-    onDelete(beerid, beer){
-        console.log(this.props.beers);
+    onDelete(beerid){
         this.props.deleteBeer(beerid);
     }
 
@@ -46,7 +27,7 @@ class BeerList extends Component {
                 <td>{beer.data.beerName}</td>
                 <td className='theRating'>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></td>
                 <td >{beer.data.desc}</td>
-                <td><button className='btn btn-danger' onClick={this.onDelete.bind(this, beer.data.id, beer.data )}>Delete</button></td>
+                <td><button className='btn btn-danger' onClick={this.onDelete.bind(this, beer.id )}>Delete</button></td>
                 </tr>
             )
         })

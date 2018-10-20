@@ -1,4 +1,4 @@
-import { FETCH_BEER, UPDATE_BEER, DELETE_BEER } from '../actions';
+import { FETCH_BEER, DELETE_BEER } from '../actions';
 import _ from 'lodash';
 
 export default function(state = {}, action){
@@ -8,12 +8,8 @@ export default function(state = {}, action){
             return _.mapKeys((action.payload), 'id');
         }
 
-        case UPDATE_BEER: {
-            return _.mapKeys((action.payload), 'id');
-        }
-
         case DELETE_BEER: {
-            return _.omit(state, action);
+            return _.omit(state, action.payload);
         }
         
         default: return state

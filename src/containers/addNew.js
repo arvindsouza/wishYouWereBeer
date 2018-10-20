@@ -36,7 +36,7 @@ class AddNew extends Component {
     onSubmit(values) {
         console.log(values.img);
         this.props.addNewBeer(values, () => {
-          //  this.props.history.push('/beers');
+            this.props.history.push('/beers');
         });
     }
 
