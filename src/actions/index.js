@@ -42,15 +42,22 @@ export function fetchBeers() {
 
 
 export function updateBeer(id, rating) {
-    db.collection('Beers').doc(id).update({ "rating": rating });
+   const request = db.collection('Beers').doc(id).update({ "rating": rating });
+
+    return {
+        type: UPDATE_BEER,
+        payload: request
+    }
 }
 
 export function addNewBeer(data, file, callback) {
     const request = db.collection('Beers').doc().set(data).then(() => callback());
 
-    var refA = storage.child(data.img);
+    if(data.img){
+        var refA = storage.child(data.img);
+        refA.put(file);
+    }
 
-    refA.put(file);
 
     return {
         type: POST_BEER,

@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
+
 html{
     height:100%;
-    background-color: #e57512;
+    background-color: #fba212;
 }
 
 body{
-    background-color: #e57512;
+    background-color: #fba212;
     height: 100%;
 }
 
@@ -12,23 +14,28 @@ body{
     height:100%;
     display: flex;
     justify-content: center;
-    padding: 20px 0px;
 }
 
 img{
-    max-height:100px;
+    max-width:100%;
 }
 
 .imageDiv{
-    height: 100px;
+    height:100px;
+    width: 500px;
 }
 
 
 .Container{
-    padding: 50px 30px;
-    background-color: #f7cf41;
     border-radius: 5px;
-    overflow-y: scroll;
+    padding: 0px 30px;
+    width:100%;
+}
+
+.listContainer{
+    z-index: 100;
+    padding-top:130px;
+    position: relative;
 }
 
 
@@ -37,22 +44,99 @@ img{
     height:30px !important;
 }
 
-.btn{
-    margin-top:10px;
+.theBtn{
+    position: absolute;
+    top:0;
+    right:0;
 }
 
-table{
-    margin-top: 30px;
+.beer{
+    width: 160px;
 }
+
+
+
+
+
+.headerRow{
+    margin-bottom: 30px;
+    border-bottom: 4px solid #ffefd4;
+    padding-bottom: 5px;
+    margin-top:60px;
+}
+
 
 .theRating{
    width:250px !important;
 }
 
-td:first-child{
-    width: 150px;
+.header{
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffefd4;
+    font-family: 'Fascinate Inline', cursive;
 }
 
-td:last-child{
-    width:280px;
+#rootContainer .pageHeader{
+    position: absolute;
+    width:100%;
 }
+
+#rootContainer{
+    position: relative;
+}
+
+/* Form */
+
+.form{
+    position: relative;
+    z-index: 100 ;
+}
+
+/* CSS Animations */
+
+.fade-exit{
+opacity: 0px;
+}
+
+.fade-exit-active{
+    opacity: 0.01;
+    transition: .5s ease-out all;
+}
+
+.slide-enter{
+    opacity: 0 ;
+    left: 400px;
+    width: 95%;
+    position: absolute;
+
+}
+
+.slide-enter-active {
+    opacity: 1;
+    left:30px;
+    width: 96%;
+
+    transition: left 300ms, opacity 800ms ease-in-out ;
+}
+
+.slide-enter-done{
+    position: relative;
+}
+
+.slide-exit{
+    opacity: 1px;
+    position: absolute;
+    width: 97%;
+    right:0;
+    }
+    
+    .slide-exit-active{
+        right: 500px;
+        opacity: 0;
+        transition: right 500ms  ease-out , opacity 250ms ease-out ;
+    }
+
+    .slide-exit-done{
+        position: relative;
+    }

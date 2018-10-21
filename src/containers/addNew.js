@@ -3,11 +3,18 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { addNewBeer } from '../actions';
 import { connect } from 'react-redux';
+import { hasFetched } from '../actions';
 import { debug } from 'util';
 
 class AddNew extends Component {
 
+    componentDidMount(){
+  
+    }
+
     renderField(field) {
+       console.log(hasFetched);
+
         const { meta: { touched, error } } = field;
         const className = `form-group ${touched && error ? 'has-danger' : ''}`
 
@@ -34,9 +41,16 @@ class AddNew extends Component {
     }
 
     onSubmit(values) {
-        let temp = values.img[0].name;
-        let file = values.img[0];
-        values.img = temp;
+        var temp, file;
+        if(values.img){
+             temp = values.img[0].name;
+             file = values.img[0];
+             values.img = temp;
+        }
+        else {
+            temp = null; file = null;
+        }
+
         this.props.addNewBeer(values, file, () => {
             this.props.history.push('/beers');
         });
@@ -46,7 +60,7 @@ class AddNew extends Component {
         const { handleSubmit } = this.props;
 
         return (
-            <div>
+            <div className='form'>
                 <h1>Add a New Beer</h1>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field

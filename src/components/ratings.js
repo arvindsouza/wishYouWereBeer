@@ -19,7 +19,8 @@ class RatingsComponent extends Component {
     }
 
     changeRating(id, rating) {
-        this.props.updateBeer(id, parseInt(rating));
+        console.log(rating);
+        this.props.updateBeer(id, rating);
         ratingChange = true;
         this.setState({
             rating: parseInt(rating)
@@ -29,7 +30,8 @@ class RatingsComponent extends Component {
     render() {
         return (
             <Ratings rating={parseInt(this.state.rating)}
-                widgetRatedColors="blue"
+                widgetRatedColors="rgb(233,113,7)"
+                widgetEmptyColors="rgb(255,239,212)"
                 changeRating={(rating) => { this.changeRating(this.props.beerId, rating) }}>
                 <Ratings.Widget />
                 <Ratings.Widget />
