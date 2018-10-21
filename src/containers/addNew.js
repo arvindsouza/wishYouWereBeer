@@ -3,18 +3,11 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { addNewBeer } from '../actions';
 import { connect } from 'react-redux';
-import { hasFetched } from '../actions';
-import { debug } from 'util';
 
 class AddNew extends Component {
 
-    componentDidMount(){
-  
-    }
 
     renderField(field) {
-       console.log(hasFetched);
-
         const { meta: { touched, error } } = field;
         const className = `form-group ${touched && error ? 'has-danger' : ''}`
 
@@ -24,7 +17,7 @@ class AddNew extends Component {
                 {field.belowLabel ? <label>{field.belowLabel}</label> : null}
                 {field.label === 'Rating' ? <input type='number' className='form-control' {...field.input} /> :
                     <input type='text' className='form-control' {...field.input} />}
-                <div className='text-help' >{touched ? error : ''}</div>
+                <div className='errorMessage' >{touched ? error : ''}</div>
             </div>
         );
     }
@@ -34,8 +27,8 @@ class AddNew extends Component {
 
         return (
             <div>
-                <label>{field.label}</label>
-                <input type='file'{...field.input} />
+                <label >{field.label}: &nbsp; </label>
+                <input className='fileInput' type='file'{...field.input} accept='.png, .jpeg, .jpg'/>
             </div>
         )
     }
@@ -61,7 +54,7 @@ class AddNew extends Component {
 
         return (
             <div className='form'>
-                <h1>Add a New Beer</h1>
+                <h1 className='formLabel'>Add a New Beer</h1>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field
                         label='Beer Name'
@@ -88,8 +81,11 @@ class AddNew extends Component {
                         component={this.renderImgUpload}
                     />
 
-                    <button className='btn btn-primary' type='submit'>Submit</button>
-                    <Link to='/' className='btn btn-danger' >Cancel</Link>
+                    <div className='formButtons'>
+                    <Link to='/' className='back' ><i className="fas fa-chevron-left fa-3x"></i></Link>
+                    <button className='submit' type='submit'><i className="fas fa-check-circle fa-3x"></i></button>
+                    </div>
+                    
                 </form>
             </div>
         )
@@ -109,6 +105,10 @@ function validate(values) {
 
     if (values.rating && (values.rating > 5 || values.rating < 1 || (values.rating % 1 !== 0))) {
         errors.rating = 'Enter a valid rating'
+    }
+
+    if(!values.desc){
+        errors.desc = 'Enter a description'
     }
 
     return errors;

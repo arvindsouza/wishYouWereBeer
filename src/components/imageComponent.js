@@ -33,6 +33,6 @@ export default class ImageComponent extends Component {
 
 
     render(){
-    return <div className='imageDiv'>{ this.state.imageUrl ? <img  src={this.state.imageUrl}/>:null}</div>
+    return <div className='imageDiv'>{ this.state.imageUrl ? <img alt='uploaded' src={this.state.imageUrl}/>:null}</div>
     }
 }

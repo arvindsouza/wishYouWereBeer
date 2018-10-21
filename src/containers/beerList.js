@@ -3,14 +3,11 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
-import anime from 'animejs'
 
 import { fetchBeers, updateBeer, deleteBeer, hasFetched } from '../actions';
 import RatingsComponent from '../components/ratings';
 import ImageComponent from '../components/imageComponent';
 
-const staticImgUrl = 'https://firebasestorage.googleapis.com/v0/b/wishyouwerebeer-95c98.appspot.com/o/MugA.png?alt=media&token=1542c78b-184d-4e87-8cf8-e67fcb17de12'
-const imgUrl = 'https://firebasestorage.googleapis.com/v0/b/wishyouwerebeer-95c98.appspot.com/o/Mug.gif?alt=media&token=1dc07329-49c6-41e8-99a8-cc6e30041e1f';
 class BeerList extends Component {
 
     constructor(props){
@@ -42,10 +39,10 @@ class BeerList extends Component {
                 >
                 <div key={beer.id} className='row'>
                     <div className='col-sm-2 ' ><ImageComponent beer={beer} /></div>
-                    <div className='col-sm-2'>{beer.data.beerName}</div>
+                    <div className='col-sm-2 colItems'>{beer.data.beerName}</div>
                     <div className='col-sm-3 '>< RatingsComponent beerRating={beer.data.rating} beerId={beer.id} /></div>
-                    <div className='col-sm-3'>{beer.data.desc}</div>
-                    <div className='col-sm-1'><button className='btn btn-danger' onClick={this.onDelete.bind(this, beer.id)}>Delete</button></div>
+                    <div className='col-sm-3 colItems'>{beer.data.desc}</div>
+                    <div className='col-sm-1'><div className='delete' onClick={this.onDelete.bind(this, beer.id)}><i className="fas fa-trash-alt fa-2x"></i></div></div>
                 </div>
                 </CSSTransition>
             )
@@ -72,8 +69,8 @@ class BeerList extends Component {
         return (
             <div className='listContainer'>
                 <div className='text-xs-right'>
-        <Link className='theBtn' to='/new' onMouseEnter = { this.handleMouseEnter } onMouseLeave = {this.handleMouseEnter } >{ this.state.mouseEnter ? <img className='beer' src={imgUrl}  /> 
-        : <img className='beer' src = 'public/favicon.ico' /> }</Link>
+        <Link className='theBtn' to='/new' onMouseEnter = { this.handleMouseEnter } onMouseLeave = {this.handleMouseEnter } >{ this.state.mouseEnter ? <img className='beer' src='Mug.gif' alt='addBeer' /> 
+        : <img className='beer' src = 'MugA.png' alt='addBeer'/> }</Link>
                 </div>
                 <div className='row headerRow' >
                 <div className='col-sm-2' ></div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline|Luckiest+Guy|Great+Vibes');
 
 html{
     height:100%;
@@ -16,13 +16,22 @@ body{
     justify-content: center;
 }
 
+.appTitle{
+    position: absolute;
+    width:100%;
+    font-size: 70px;
+    color:#fba212;
+    font-family: 'Great Vibes', cursive;
+    text-align: center;
+    text-decoration: underline;
+}
+
 img{
-    max-width:100%;
+    height:100%;
 }
 
 .imageDiv{
     height:100px;
-    width: 500px;
 }
 
 
@@ -34,7 +43,7 @@ img{
 
 .listContainer{
     z-index: 100;
-    padding-top:130px;
+    padding:130px 30px 0px 30px;
     position: relative;
 }
 
@@ -54,10 +63,6 @@ img{
     width: 160px;
 }
 
-
-
-
-
 .headerRow{
     margin-bottom: 30px;
     border-bottom: 4px solid #ffefd4;
@@ -75,6 +80,7 @@ img{
     font-weight: bold;
     color: #ffefd4;
     font-family: 'Fascinate Inline', cursive;
+    margin-bottom: 30px;
 }
 
 #rootContainer .pageHeader{
@@ -86,12 +92,99 @@ img{
     position: relative;
 }
 
+.delete:hover{
+    cursor: pointer;
+}
+
+.fa-trash-alt{
+    color: #ffefd4;
+}
+
+.fa-trash-alt:hover{
+    color: #ad1515;
+    transition: 300ms ease-in-out all;
+}
+
+.colItems{
+    font-family: 'Luckiest Guy', cursive;
+    color: #ffefd4;
+    font-size:20px;
+}
+
+.row div{
+    word-wrap: break-word;
+    overflow-y: auto;
+    max-height: 100px;
+}
+
+.row{
+    margin-bottom: 30px;
+}
+
+
 /* Form */
 
 .form{
     position: relative;
     z-index: 100 ;
+    padding-top: 180px;
+    
 }
+
+.formLabel{
+    text-align: center;
+    font-weight: bold;
+    color: #ffefd4;
+    font-family: 'Fascinate Inline', cursive;
+    margin-bottom: 30px;
+}
+
+label{
+    font-family: 'Luckiest Guy', cursive;
+    color: #ffefd4;
+    font-size:20px;
+}
+
+.fa-chevron-left{
+    color: #ffefd4;
+}
+
+.back{
+    margin-right:20px;
+}
+
+.fa-check-circle{
+    color: #ffefd4; 
+}
+
+.formButtons{
+    display: flex;
+    flex-direction: row;
+    margin-top:10px;
+    justify-content: space-around;
+}
+
+.fa-check-circle:hover{
+    cursor: pointer;
+    color: #30a56d;
+    transition: 300ms ease-in-out all;
+}
+
+.fa-chevron-left:hover{
+    color: #ad1515;
+    transition: 300ms ease-in-out all;
+}
+
+.submit{
+    background: none;
+    border:none;
+    outline: none;
+}
+
+.errorMessage{
+    color: #ad1515;
+}
+
 
 /* CSS Animations */
 
@@ -140,3 +233,18 @@ opacity: 0px;
     .slide-exit-done{
         position: relative;
     }
+
+    /* Scrollbar */
+
+    ::-webkit-scrollbar{
+        width: 10px;
+    }
+
+::-webkit-scrollbar-track {
+    background: #ffefd4 ; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(233,113,7); 
+}
+
