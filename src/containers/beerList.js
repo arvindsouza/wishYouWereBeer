@@ -24,8 +24,8 @@ class BeerList extends Component {
         this.props.fetchBeers();
     }
 
-    onDelete(beerid) {
-        this.props.deleteBeer(beerid);
+    onDelete(beerid, beerImg) {
+        this.props.deleteBeer(beerid, beerImg);
     }
 
 
@@ -42,7 +42,7 @@ class BeerList extends Component {
                     <div className='col-sm-2 colItems'>{beer.data.beerName}</div>
                     <div className='col-sm-3 '>< RatingsComponent beerRating={beer.data.rating} beerId={beer.id} /></div>
                     <div className='col-sm-3 colItems'>{beer.data.desc}</div>
-                    <div className='col-sm-1'><div className='delete' onClick={this.onDelete.bind(this, beer.id)}><i className="fas fa-trash-alt fa-2x"></i></div></div>
+                    <div className='col-sm-1'><div className='delete' onClick={this.onDelete.bind(this, beer.id, beer.data.img)}><i className="fas fa-trash-alt fa-2x"></i></div></div>
                 </div>
                 </CSSTransition>
             )

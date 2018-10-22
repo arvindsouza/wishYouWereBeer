@@ -178,11 +178,54 @@ label{
 .submit{
     background: none;
     border:none;
+}
+
+.submit:focus{
     outline: none;
 }
 
 .errorMessage{
     color: #ad1515;
+}
+
+.fileInput{
+    opacity: 0;
+    height:100%;
+    z-index: 100;
+    position: relative;
+}
+
+.fileOverlay{
+    width:60px;
+    height:50px;
+    position: relative;
+}
+
+.fileOverlay:hover .fa-upload{
+    color: #30a56d;
+    transition: 300ms ease-in-out all;
+
+}
+
+.fa-upload{
+    position: absolute;
+    top:0;
+    color: #ffefd4;
+    padding-lefT:20px;
+    z-index: 99;
+}
+
+.fileArea{
+    display: flex;
+    flex-direction: row;
+}
+
+.rating span.checked ~ span {
+    background-color: #ad1515;
+}
+
+.checked{
+    background-color: #ad1515;
 }
 
 

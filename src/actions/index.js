@@ -65,8 +65,13 @@ export function addNewBeer(data, file, callback) {
     }
 }
 
-export function deleteBeer(id) {
+export function deleteBeer(id, img) {
     db.collection('Beers').doc(id).delete();
+
+    if(img){
+        var refA = storage.child(img);
+        refA.delete();
+    }
 
     return {
         type: DELETE_BEER,

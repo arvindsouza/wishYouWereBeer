@@ -6,6 +6,13 @@ import { connect } from 'react-redux';
 
 class AddNew extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            fileName: ''
+        }
+    }
 
     renderField(field) {
         const { meta: { touched, error } } = field;
@@ -14,34 +21,52 @@ class AddNew extends Component {
         return (
             <div className={className} >
                 <label>{field.label}</label>
-                {field.belowLabel ? <label>{field.belowLabel}</label> : null}
-                {field.label === 'Rating' ? <input type='number' className='form-control' {...field.input} /> :
-                    <input type='text' className='form-control' {...field.input} />}
+                <input type='text' className='form-control' {...field.input} />
                 <div className='errorMessage' >{touched ? error : ''}</div>
             </div>
         );
     }
 
+    renderNumberField(field) {
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`
+
+        return (
+            <div className={className} >
+                <label>{field.label}</label>
+                <label>{field.belowLabel}</label>
+                <input type='number' className='form-control' {...field.input} />
+                <div className='errorMessage' >{touched ? error : ''}</div>
+
+            </div>
+        )
+    }
+
+
+
     renderImgUpload(field) {
         delete field.input.value;
 
         return (
-            <div>
+            <div className='fileArea'>
                 <label >{field.label}: &nbsp; </label>
-                <input className='fileInput' type='file'{...field.input} accept='.png, .jpeg, .jpg'/>
+                <div className='fileOverlay'><input className='fileInput' type='file'{...field.input} accept='.png, .jpeg, .jpg' />
+                    <i className="fas fa-upload fa-2x"></i></div>
+                <div>{field.input.img && field.input.img[0] ? this.state.fileName : null}</div>
             </div>
         )
     }
 
     onSubmit(values) {
         var temp, file;
-        if(values.img){
-             temp = values.img[0].name;
-             file = values.img[0];
-             values.img = temp;
+        if (values.img && values.img[0]) {
+            console.log(values.img);
+            temp = values.img[0].name;
+            file = values.img[0];
+            values.img = temp;
         }
         else {
-            temp = null; file = null;
+            temp = null; file = null; values.img = temp;
         }
 
         this.props.addNewBeer(values, file, () => {
@@ -64,9 +89,9 @@ class AddNew extends Component {
 
                     <Field
                         label='Rating'
-                        belowLabel='(Between 1 and 5)'
                         name='rating'
-                        component={this.renderField}
+                        belowLabel = '(Between 1 and 5)'
+                        component={this.renderNumberField}
                     />
 
                     <Field
@@ -78,14 +103,14 @@ class AddNew extends Component {
                     <Field
                         label='image'
                         name='img'
-                        component={this.renderImgUpload}
+                        component={this.renderImgUpload.bind(this)}
                     />
 
                     <div className='formButtons'>
-                    <Link to='/' className='back' ><i className="fas fa-chevron-left fa-3x"></i></Link>
-                    <button className='submit' type='submit'><i className="fas fa-check-circle fa-3x"></i></button>
+                        <Link to='/' className='back' ><i className="fas fa-chevron-left fa-3x"></i></Link>
+                        <button className='submit' type='submit'><i className="fas fa-check-circle fa-3x"></i></button>
                     </div>
-                    
+
                 </form>
             </div>
         )
@@ -107,7 +132,7 @@ function validate(values) {
         errors.rating = 'Enter a valid rating'
     }
 
-    if(!values.desc){
+    if (!values.desc) {
         errors.desc = 'Enter a description'
     }
 

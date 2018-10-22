@@ -32,6 +32,7 @@ class RatingsComponent extends Component {
             <Ratings rating={parseInt(this.state.rating)}
                 widgetRatedColors="rgb(233,113,7)"
                 widgetEmptyColors="rgb(255,239,212)"
+                widgetHoverColors="rgb(173, 21, 21)"
                 changeRating={(rating) => { this.changeRating(this.props.beerId, rating) }}>
                 <Ratings.Widget />
                 <Ratings.Widget />
