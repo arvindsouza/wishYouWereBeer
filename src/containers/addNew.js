@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { addNewBeer } from '../actions';
 import { connect } from 'react-redux';
+import Ratings from 'react-ratings-declarative';
 
 class AddNew extends Component {
 
@@ -10,7 +11,7 @@ class AddNew extends Component {
         super(props);
 
         this.state = {
-            fileName: ''
+            rating: 1
         }
     }
 
@@ -32,10 +33,24 @@ class AddNew extends Component {
         const className = `form-group ${touched && error ? 'has-danger' : ''}`
 
         return (
-            <div className={className} >
+            <div className={className} id='ratingfield'>
                 <label>{field.label}</label>
-                <label>{field.belowLabel}</label>
-                <input type='number' className='form-control' {...field.input} />
+                <label  className='stars'>
+                    <Ratings
+                        rating={this.state.rating}
+                        widgetRatedColors="rgb(233,113,7)"
+                        widgetEmptyColors="rgb(255,239,212)"
+                        widgetHoverColors="rgb(173, 21, 21)"
+                        changeRating={(newRating) => { this.setState({ rating: newRating }) }}
+                    >
+                        <Ratings.Widget />
+                        <Ratings.Widget />
+                        <Ratings.Widget />
+                        <Ratings.Widget />
+                        <Ratings.Widget />
+                    </Ratings>
+                </label>
+                <input type='number' className='form-control ratingInput' readOnly {...field.input} value={this.state.rating} />
                 <div className='errorMessage' >{touched ? error : ''}</div>
 
             </div>
@@ -90,8 +105,7 @@ class AddNew extends Component {
                     <Field
                         label='Rating'
                         name='rating'
-                        belowLabel = '(Between 1 and 5)'
-                        component={this.renderNumberField}
+                        component={this.renderNumberField.bind(this)}
                     />
 
                     <Field

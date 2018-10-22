@@ -228,6 +228,25 @@ label{
     background-color: #ad1515;
 }
 
+#ratingfield{
+    display: flex;
+    flex-direction: column;
+}
+
+.stars{
+    margin-bottom: 10px;
+}
+
+.ratingInput{
+    background-color: #fba212 !important;
+    border: 2px solid #ffefd4 !important; 
+    color: #ffefd4;
+}
+
+.ratingInput:hover{
+    cursor: default;
+}
+
 
 /* CSS Animations */
 
