@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline|Luckiest+Guy|Great+Vibes');
+
+html{
+    height:100%;
+    background-color: #fba212;
+}
+
+body{
+    background-color: #fba212;
+    height: 100%;
+}
+
+#root{
+    height:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.appTitle{
+    position: absolute;
+    width:100%;
+    font-size: 70px;
+    color:#fba212;
+    font-family: 'Great Vibes', cursive;
+    text-align: center;
+    text-decoration: underline;
+}
+
+img{
+    height:100%;
+}
+
+.imageDiv{
+    height:100px;
+}
+
+
+.Container{
+    border-radius: 5px;
+    padding: 0px 30px;
+    width:100%;
+}
+
+.listContainer{
+    z-index: 100;
+    padding:130px 30px 0px 30px;
+    position: relative;
+}
+
+
+.widget-container svg{
+    width:30px !important;
+    height:30px !important;
+}
+
+.theBtn{
+    position: absolute;
+    top:0;
+    right:0;
+}
+
+.beer{
+    width: 160px;
+}
+
+.headerRow{
+    margin-bottom: 30px;
+    border-bottom: 4px solid #ffefd4;
+    padding-bottom: 5px;
+    margin-top:60px;
+}
+
+
+.theRating{
+   width:250px !important;
+}
+
+.header{
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffefd4;
+    font-family: 'Fascinate Inline', cursive;
+    margin-bottom: 30px;
+}
+
+#rootContainer .pageHeader{
+    position: absolute;
+    width:100%;
+}
+
+#rootContainer{
+    position: relative;
+}
+
+.delete:hover{
+    cursor: pointer;
+}
+
+.fa-trash-alt{
+    color: #ffefd4;
+}
+
+.fa-trash-alt:hover{
+    color: #ad1515;
+    transition: 300ms ease-in-out all;
+}
+
+.colItems{
+    font-family: 'Luckiest Guy', cursive;
+    color: #ffefd4;
+    font-size:20px;
+}
+
+.row div{
+    word-wrap: break-word;
+    overflow-y: auto;
+    max-height: 100px;
+}
+
+.row{
+    margin-bottom: 30px;
+}
+
+
+/* Form */
+
+.form{
+    position: relative;
+    z-index: 100 ;
+    padding-top: 180px;
+    
+}
+
+.formLabel{
+    text-align: center;
+    font-weight: bold;
+    color: #ffefd4;
+    font-family: 'Fascinate Inline', cursive;
+    margin-bottom: 30px;
+}
+
+label{
+    font-family: 'Luckiest Guy', cursive;
+    color: #ffefd4;
+    font-size:20px;
+}
+
+.fa-chevron-left{
+    color: #ffefd4;
+}
+
+.back{
+    margin-right:20px;
+}
+
+.fa-check-circle{
+    color: #ffefd4; 
+}
+
+.formButtons{
+    display: flex;
+    flex-direction: row;
+    margin-top:10px;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.fa-check-circle:hover{
+    cursor: pointer;
+    color: #30a56d;
+    transition: 300ms ease-in-out all;
+}
+
+.fa-chevron-left:hover{
+    color: #ad1515;
+    transition: 300ms ease-in-out all;
+}
+
+.submit{
+    background: none;
+    border:none;
+}
+
+.submit:focus{
+    outline: none;
+}
+
+.errorMessage{
+    color: #ad1515;
+}
+
+.fileInput{
+    opacity: 0;
+    height:100%;
+    z-index: 100;
+    position: relative;
+}
+
+.fileOverlay{
+    width:60px;
+    height:50px;
+    position: relative;
+}
+
+.fileOverlay:hover .fa-upload{
+    color: #30a56d;
+    transition: 300ms ease-in-out all;
+
+}
+
+.fa-upload{
+    position: absolute;
+    top:0;
+    color: #ffefd4;
+    padding-lefT:20px;
+    z-index: 99;
+}
+
+.fileArea{
+    display: flex;
+    flex-direction: row;
+}
+
+.rating span.checked ~ span {
+    background-color: #ad1515;
+}
+
+.checked{
+    background-color: #ad1515;
+}
+
+#ratingfield{
+    display: flex;
+    flex-direction: column;
+}
+
+.stars{
+    margin-bottom: 10px;
+}
+
+.ratingInput{
+    background-color: #fba212 !important;
+    border: 2px solid #ffefd4 !important; 
+    color: #ffefd4;
+}
+
+.ratingInput:hover{
+    cursor: default;
+}
+
+
+/* CSS Animations */
+
+.fade-exit{
+opacity: 0px;
+}
+
+.fade-exit-active{
+    opacity: 0.01;
+    transition: .5s ease-out all;
+}
+
+.slide-enter{
+    opacity: 0 ;
+    left: 400px;
+    width: 95%;
+    position: absolute;
+
+}
+
+.slide-enter-active {
+    opacity: 1;
+    left:30px;
+    width: 96%;
+
+    transition: left 300ms, opacity 800ms ease-in-out ;
+}
+
+.slide-enter-done{
+    position: relative;
+}
+
+.slide-exit{
+    opacity: 1px;
+    position: absolute;
+    width: 97%;
+    right:0;
+    }
+    
+    .slide-exit-active{
+        right: 500px;
+        opacity: 0;
+        transition: right 500ms  ease-out , opacity 250ms ease-out ;
+    }
+
+    .slide-exit-done{
+        position: relative;
+    }
+
+
+    /* Scrollbar */
+
+    ::-webkit-scrollbar{
+        width: 10px;
+    }
+
+::-webkit-scrollbar-track {
+    background: #ffefd4 ; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(233,113,7); 
+}
+
+
