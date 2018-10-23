@@ -1,3 +1,4 @@
+
 html{
     height:100%;
     background-color: #e57512;
@@ -12,38 +13,9 @@ body{
     height:100%;
     display: flex;
     justify-content: center;
-    padding: 20px 0px;
+    padding: 20px 30px;
 }
 
 
-.listContainer{
-    padding: 50px 30px;
-    background-color: #f7cf41;
-    border-radius: 5px;
-}
 
 
-.widget-container svg{
-    width:30px !important;
-    height:30px !important;
-}
-
-.btn{
-    margin-top:10px;
-}
-
-table{
-    margin-top: 30px;
-}
-
-.theRating{
-   width:250px !important;
-}
-
-td:first-child{
-    width: 150px;
-}
-
-td:last-child{
-    width:280px;
-}

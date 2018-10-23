@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline|Luckiest+Guy|Great+Vibes');
+
+.list-container{
+    border-radius: 5px;
+    width:100%
+}
+
+
+.widget-container svg{
+    width:30px !important;
+    height:30px !important;
+}
+
+.btn{
+    margin-top:10px;
+}
+
+.the-rating{
+   width:250px !important;
+}
+
+.add-new-container{
+    text-align: right;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.header-row{
+    margin-bottom:20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #ffefd4;
+}
+
+.header{
+    font-family: 'Fascinate Inline', cursive;
+    font-size: 30px;
+    font-weight:bold;
+    color: #ffefd4;
+}
+

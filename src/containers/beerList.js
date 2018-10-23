@@ -43,7 +43,7 @@ class BeerList extends Component {
             return (
                 <div  key={beer.id} className='row'>
                 <div className=''>{beer.data.beerName}</div>
-                <div className='theRating '>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></div>
+                <div className='the-rating '>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></div>
                 <div className=''>{beer.data.desc}</div>
                 </div>
             )
@@ -58,12 +58,12 @@ class BeerList extends Component {
         }
         
         return (
-            <div className='listContainer'>
-                <div className=''>
+            <div className='list-container'>
+                <div className='add-new-container'>
                      <button className='' >Add New Beer</button>
                 </div>
 
-                <div className='row headerRow'>
+                <div className='row header-row'>
                         <div className='header '>Name</div>
                         <div className=' header '>Rating</div>
                         <div className=' header '>Description</div>
