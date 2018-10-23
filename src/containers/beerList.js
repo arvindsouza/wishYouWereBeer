@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 import { fetchBeers, updateBeer } from '../actions';
 import RatingsComponent, {ratingChange} from '../components/ratings';
@@ -60,7 +61,7 @@ class BeerList extends Component {
         return (
             <div className='listContainer'>
                 <div className='text-xs-right'>
-                     <button className='btn btn-primary' >Add New Beer</button>
+                     <Link to='/new' className='btn btn-primary' >Add New Beer</Link>
                 </div>
 
                 <div className='row headerRow'>
