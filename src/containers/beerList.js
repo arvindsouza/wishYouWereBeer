@@ -34,7 +34,7 @@ class BeerList extends Component {
         return _.map(this.props.beers, beer => {
             return (
                 <CSSTransition key={beer.id}
-                    timeout={100}
+                    timeout={300}
                     classNames='fade'
                 >
                     <div key={beer.id} className='row'>
