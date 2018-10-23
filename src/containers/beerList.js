@@ -42,9 +42,9 @@ class BeerList extends Component {
             
             return (
                 <div  key={beer.id} className='row'>
-                <div className='col-sm-2 '>{beer.data.beerName}</div>
-                <div className='theRating col-sm-3'>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></div>
-                <div className='col-sm-3 '>{beer.data.desc}</div>
+                <div className=''>{beer.data.beerName}</div>
+                <div className='theRating '>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></div>
+                <div className=''>{beer.data.desc}</div>
                 </div>
             )
         })
@@ -59,14 +59,14 @@ class BeerList extends Component {
         
         return (
             <div className='listContainer'>
-                <div className='text-xs-right'>
-                     <button className='btn btn-primary' >Add New Beer</button>
+                <div className=''>
+                     <button className='' >Add New Beer</button>
                 </div>
 
                 <div className='row headerRow'>
-                        <div className='header col-sm-3'>Name</div>
-                        <div className=' header col-sm-6'>Rating</div>
-                        <div className=' header col-sm-3'>Description</div>
+                        <div className='header '>Name</div>
+                        <div className=' header '>Rating</div>
+                        <div className=' header '>Description</div>
                 </div>
                 {this.returnBeerList()}
             </div>
