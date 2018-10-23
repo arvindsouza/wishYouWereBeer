@@ -8,8 +8,6 @@ import { fetchBeers, updateBeer, deleteBeer, hasFetched } from '../actions';
 import RatingsComponent from '../components/ratings';
 import ImageComponent from '../components/imageComponent';
 
-const imgUrl = 'https://firebasestorage.googleapis.com/v0/b/wishyouwerebeer-95c98.appspot.com/o/MugA.png?alt=media&token=d64c35ef-6c95-45b1-b21e-bd1850cdf09b';
-
 class BeerList extends Component {
 
     constructor(props) {
@@ -72,7 +70,7 @@ class BeerList extends Component {
             <div className='listContainer'>
                 <div className='text-xs-right'>
                     <Link className='theBtn' to='/new' onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseEnter} >{this.state.mouseEnter ? <img className='beer' src='Mug.gif' alt='addBeer' />
-                        : <img className='beer' src={imgUrl} alt='addBeer' />}</Link>
+                        : <img className='beer' src='MugA.png' alt='addBeer' />}</Link>
                 </div>
                 <div className='row headerRow' >
                     <div className='col-sm-2' ></div>
