@@ -19,7 +19,6 @@ class RatingsComponent extends Component {
     }
 
     changeRating(id, rating) {
-        console.log(rating);
         this.props.updateBeer(id, rating);
         ratingChange = true;
         this.setState({

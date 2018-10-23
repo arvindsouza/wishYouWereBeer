@@ -296,6 +296,7 @@ opacity: 0px;
         position: relative;
     }
 
+
     /* Scrollbar */
 
     ::-webkit-scrollbar{
@@ -309,4 +310,5 @@ opacity: 0px;
 ::-webkit-scrollbar-thumb {
     background: rgb(233,113,7); 
 }
+
 

@@ -13,7 +13,7 @@ export default class ImageComponent extends Component {
             imageUrl: ''
         }
 
-        this.fetchImage =  this.fetchImage.bind(this);
+        this.fetchImage = this.fetchImage.bind(this);
     }
 
     fetchImage() {
@@ -23,16 +23,16 @@ export default class ImageComponent extends Component {
 
                 console.log(this.state.imageUrl);
             })
-            else
-            this.setState({imageUrl: null})
+        else
+            this.setState({ imageUrl: null })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.fetchImage();
     }
 
 
-    render(){
-    return <div className='imageDiv'>{ this.state.imageUrl ? <img alt='uploaded' src={this.state.imageUrl}/>:null}</div>
+    render() {
+        return <div className='imageDiv'>{this.state.imageUrl ? <img alt='uploaded' src={this.state.imageUrl} /> : null}</div>
     }
 }

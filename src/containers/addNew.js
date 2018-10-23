@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { addNewBeer } from '../actions';
 import { connect } from 'react-redux';
@@ -13,6 +13,8 @@ class AddNew extends Component {
         this.state = {
             rating: 1
         }
+
+        this.changeTheRating = this.changeTheRating.bind(this);
     }
 
     renderField(field) {
@@ -22,10 +24,14 @@ class AddNew extends Component {
         return (
             <div className={className} >
                 <label>{field.label}</label>
-                <input type='text' className='form-control' {...field.input} />
+                <input type='text' className='form-control'{...field.input} onBlur={console.log('hello')} />
                 <div className='errorMessage' >{touched ? error : ''}</div>
             </div>
         );
+    }
+
+    changeTheRating(newRating) {
+        this.setState({ rating: newRating }); console.log(newRating);
     }
 
     renderNumberField(field) {
@@ -35,13 +41,13 @@ class AddNew extends Component {
         return (
             <div className={className} id='ratingfield'>
                 <label>{field.label}</label>
-                <label  className='stars'>
+                <label className='stars'>
                     <Ratings
                         rating={this.state.rating}
                         widgetRatedColors="rgb(233,113,7)"
                         widgetEmptyColors="rgb(255,239,212)"
                         widgetHoverColors="rgb(173, 21, 21)"
-                        changeRating={(newRating) => { this.setState({ rating: newRating }) }}
+                        changeRating={this.changeTheRating}
                     >
                         <Ratings.Widget />
                         <Ratings.Widget />
@@ -50,7 +56,7 @@ class AddNew extends Component {
                         <Ratings.Widget />
                     </Ratings>
                 </label>
-                <input type='number' className='form-control ratingInput' readOnly {...field.input} value={this.state.rating} />
+                <input type='number' className='form-control ratingInput' onChange={this.props.change('NewBeerForm', 'rating', this.state.rating)}  {...field.input} value={this.state.rating} readOnly />
                 <div className='errorMessage' >{touched ? error : ''}</div>
 
             </div>
@@ -65,7 +71,7 @@ class AddNew extends Component {
         return (
             <div className='fileArea'>
                 <label >{field.label}: &nbsp; </label>
-                <div className='fileOverlay'><input className='fileInput' type='file'{...field.input} accept='.png, .jpeg, .jpg' />
+                <div className='fileOverlay'><input className='fileInput' type='file' {...field.input} accept='.png, .jpeg, .jpg' />
                     <i className="fas fa-upload fa-2x"></i></div>
                 <div>{field.input.img && field.input.img[0] ? this.state.fileName : null}</div>
             </div>
@@ -74,6 +80,8 @@ class AddNew extends Component {
 
     onSubmit(values) {
         var temp, file;
+        console.log(values.rating);
+
         if (values.img && values.img[0]) {
             console.log(values.img);
             temp = values.img[0].name;
@@ -139,7 +147,7 @@ function validate(values) {
     }
 
     if (!values.rating) {
-        errors.rating = 'Enter a Rating'
+        errors.rating = 'Enter the Rating'
     }
 
     if (values.rating && (values.rating > 5 || values.rating < 1 || (values.rating % 1 !== 0))) {
@@ -157,5 +165,5 @@ export default reduxForm({
     validate,
     form: 'NewBeerForm'
 })(
-    connect(null, { addNewBeer })(AddNew)
+    connect(null, { change, addNewBeer })(AddNew)
 );

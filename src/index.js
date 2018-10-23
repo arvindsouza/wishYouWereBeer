@@ -21,21 +21,21 @@ ReactDOM.render(<Provider store={createStoreWithMiddleware(reducers)}>
 
     <BrowserRouter>
         <div className='Container' >
-        <Route render = {({location}) => (
-            <TransitionGroup >
-            <CSSTransition
-             timeout = {800}
-             classNames = 'slide'
-             key = {location.key}
-            >
-            <Switch location={ location}>
-                <Route path='/new' component={AddNew}></Route>
-                <Route path='/' component={BeerList} ></Route>
-            </Switch>
-            </CSSTransition>
-        </TransitionGroup>
-        )} />
-            
+            <Route render={({ location }) => (
+                <TransitionGroup >
+                    <CSSTransition
+                        timeout={800}
+                        classNames='slide'
+                        key={location.key}
+                    >
+                        <Switch location={location}>
+                            <Route path='/new' component={AddNew}></Route>
+                            <Route path='/' component={BeerList} ></Route>
+                        </Switch>
+                    </CSSTransition>
+                </TransitionGroup>
+            )} />
+
         </div>
 
     </BrowserRouter>
