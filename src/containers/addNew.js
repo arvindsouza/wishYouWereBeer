@@ -12,12 +12,17 @@ class AddNew extends Component {
         super(props);
 
         this.state = {
-            rating: 1
+            rating: 1,
         }
 
-        this.changeTheRating = this.changeTheRating.bind(this);
     }
     
+    changeTheRating = (newRating) =>{
+        this.setState({ rating: newRating }); 
+        console.log(newRating);
+
+    }
+
     renderField(field) {
         const { meta: { touched, error } } = field;
         const className = `form-group ${touched && error ? 'has-danger' : ''}`
@@ -31,10 +36,6 @@ class AddNew extends Component {
         );
     }
 
-    
-    changeTheRating(newRating) {
-        this.setState({ rating: newRating }); console.log(newRating);
-    }
 
     renderNumberField(field) {
         const { meta: { touched, error } } = field;
@@ -64,13 +65,13 @@ class AddNew extends Component {
         )
     }
 
-    renderImgUpload(field) {
-        delete field.input.value;
+    renderImgUpload(field) {  
+        delete field.input.value
 
         return (
             <div className='fileArea'>
                 <label >{field.label}: &nbsp; </label>
-                <div className='fileOverlay'><input className='fileInput' type='file' {...field.input} accept='.png, .jpeg, .jpg' />
+                <div className='fileOverlay'><input className='fileInput' {...field.input} type='file' accept='.png, .jpeg, .jpg' />
                     </div>
                 <div>{field.input.img && field.input.img[0] ? this.state.fileName : null}</div>
             </div>
@@ -79,7 +80,6 @@ class AddNew extends Component {
 
     onSubmit(values) {
         var temp, file;
-        console.log(values.rating);
 
         if (values.img && values.img[0]) {
             console.log(values.img);
@@ -159,8 +159,12 @@ function validate(values) {
     return errors;
 }
 
+
 export default reduxForm({
     validate,
+    initialValues:{
+        img: FileList
+    },
     form: 'NewBeerForm'
 })(
     connect(null, {change, addNewBeer})(AddNew)
