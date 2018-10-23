@@ -47,3 +47,7 @@ td:first-child{
 td:last-child{
     width:280px;
 }
+
+.headerRow{
+    margin-bottom: 20px
+}

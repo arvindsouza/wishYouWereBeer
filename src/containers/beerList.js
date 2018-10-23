@@ -41,11 +41,11 @@ class BeerList extends Component {
         return _.map(this.props.beers, beer => {
             
             return (
-                <tr  key={beer.id}  onClick = {(data) => {this.showDesc(beer.id)}}>
-                <td>{beer.beerName}</td>
-                <td className='theRating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer.id}/></td>
-                <td >{beer.desc}</td>
-                </tr>
+                <div  key={beer.id} className='row'>
+                <div className='col-sm-2 '>{beer.data.beerName}</div>
+                <div className='theRating col-sm-3'>< RatingsComponent beerRating = {beer.data.rating}  beerId={beer.id}/></div>
+                <div className='col-sm-3 '>{beer.data.desc}</div>
+                </div>
             )
         })
     }
@@ -60,21 +60,15 @@ class BeerList extends Component {
         return (
             <div className='listContainer'>
                 <div className='text-xs-right'>
-                    <button className='btn btn-primary' >Add New Beer</button>
+                     <button className='btn btn-primary' >Add New Beer</button>
                 </div>
 
-                <table className='table table-hover' >
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Rating</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <div className='row headerRow'>
+                        <div className='header col-sm-3'>Name</div>
+                        <div className=' header col-sm-6'>Rating</div>
+                        <div className=' header col-sm-3'>Description</div>
+                </div>
                 {this.returnBeerList()}
-                </tbody>
-                </table>
             </div>
         )
     }
