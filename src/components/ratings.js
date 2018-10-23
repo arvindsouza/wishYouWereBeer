@@ -28,7 +28,7 @@ class RatingsComponent extends Component {
 
     render() {
         return (
-            <Ratings rating={parseInt(this.state.rating)}
+            <Ratings rating={(this.state.rating)}
                 widgetRatedColors="blue"
                 changeRating={(rating) => { this.changeRating(this.props.beerId, rating) }}>
                 <Ratings.Widget />

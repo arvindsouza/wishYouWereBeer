@@ -1,3 +1,4 @@
+import axios from 'axios';
 import firebase from 'firebase';
 
 export const FETCH_BEER = 'FETCH_BEER';
@@ -22,28 +23,24 @@ var storage = firebase.storage().ref();
 
 const url = 'http://localhost:3000/beers'
 
-export function fetchBeers() {
+export function fetchBeers(){
 
-    var data = db.collection('Beers').get().then((snapshot) => {
-        return snapshot.docs.map((doc) => {
-            return { "id": doc.id, "data": doc.data() };
-        })
-    })
+    const request = axios.get(url);
 
-    return {
+    return{
         type: FETCH_BEER,
-        payload: data
+        payload: request
     }
 }
 
-export function updateBeer(id, rating) {
+export function updateBeer(id, rating){
 
-    /*  const request = axios.patch(`${url}/${id}`, { "rating": rating });
-  
-      return {
-          type: UPDATE_BEER,
-          payload: request
-      }*/
+    const request = axios.patch(`${url}/${id}`, {"rating": rating});
+
+    return{
+        type: UPDATE_BEER,
+        payload: request
+    }
 }
 
 export function addNewBeer(data, file, callback){
