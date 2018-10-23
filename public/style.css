@@ -162,6 +162,7 @@ label{
     flex-direction: row;
     margin-top:10px;
     justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .fa-check-circle:hover{

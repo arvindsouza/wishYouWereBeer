@@ -87,8 +87,8 @@ class BeerList extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { beers: state.beers }
+function mapStateToProps({beers}) {
+    return { beers }
 }
 
 
