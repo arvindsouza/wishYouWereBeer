@@ -44,7 +44,7 @@ class BeerList extends Component {
             return (
                 <tr  key={beer.id}  onClick = {(data) => {this.showDesc(beer.id)}}>
                 <td>{beer.beerName}</td>
-                <td className='theRating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer.id}/></td>
+                <td className='the-rating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer.id}/></td>
                 <td >{beer.desc}</td>
                 </tr>
             )
@@ -59,9 +59,9 @@ class BeerList extends Component {
         }
         
         return (
-            <div className='listContainer'>
-                <div className='text-xs-right'>
-                    <Link to='/new' className='btn btn-primary' >Add New Beer</Link>
+            <div className='list-container'>
+                <div className='add-new-container'>
+                    <Link to='/new' className='' >Add New Beer</Link>
                 </div>
 
                 <table className='table table-hover' >
