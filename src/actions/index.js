@@ -25,12 +25,16 @@ export function updateBeer(id, rating) {
   };
 }
 
-export function addNewBeer(data, file, callback) {
+export function addNewBeer(data, file) {
   const request = db
     .collection('Beers')
     .doc()
     .set(data)
-    .then(() => callback());
+    .then(() => {
+      return new Promise((resolve) => {
+        return resolve('Success');
+      });
+    });
 
   if (data.img) {
     var refA = storage.child(data.img);

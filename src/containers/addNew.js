@@ -15,7 +15,7 @@ class AddNew extends Component {
     };
   }
 
-  changeTheRating = (newRating) => {
+  changeTheRating = newRating => {
     this.setState({ rating: newRating });
   };
 
@@ -114,7 +114,7 @@ class AddNew extends Component {
       values.img = temp;
     }
 
-    this.props.addNewBeer(values, file, () => {
+    this.props.addNewBeer(values, file).then(() => {
       this.props.history.push('/beers');
     });
   }
