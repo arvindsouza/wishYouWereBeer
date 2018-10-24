@@ -32,7 +32,7 @@ class AddNew extends Component {
       <div className={className}>
         <label>{field.label}</label>
         <input type="text" className="form-control" {...field.input} />
-        <div className="error-message">{touched ? error : ''}</div>
+        {touched ? <div className="error-message">{error}</div> : null}
       </div>
     );
   }
