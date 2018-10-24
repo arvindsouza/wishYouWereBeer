@@ -34,7 +34,7 @@ class AddNew extends Component {
           {...field.input}
           onBlur={console.log('hello')}
         />
-        <div className="errorMessage">{touched ? error : ''}</div>
+        <div className="error-message">{touched ? error : ''}</div>
       </div>
     );
   }
@@ -46,7 +46,7 @@ class AddNew extends Component {
     const className = `form-group ${touched && error ? 'has-danger' : ''}`;
 
     return (
-      <div className={className} id="ratingfield">
+      <div className={className} id="rating-field">
         <label>{field.label}</label>
         <label className="stars">
           <Ratings
@@ -64,7 +64,7 @@ class AddNew extends Component {
         </label>
         <input
           type="number"
-          className="form-control ratingInput"
+          className="form-control rating-input"
           onChange={this.props.change(
             'NewBeerForm',
             'rating',
@@ -74,7 +74,7 @@ class AddNew extends Component {
           value={this.state.rating}
           readOnly
         />
-        <div className="errorMessage">{touched ? error : ''}</div>
+        <div className="error-message">{touched ? error : ''}</div>
       </div>
     );
   }
@@ -83,11 +83,11 @@ class AddNew extends Component {
     delete field.input.value;
 
     return (
-      <div className="fileArea">
+      <div className="file-area">
         <label>{field.label}: &nbsp; </label>
-        <div className="fileOverlay">
+        <div className="file-overlay">
           <input
-            className="fileInput"
+            className="file-input"
             {...field.input}
             type="file"
             accept=".png, .jpeg, .jpg"
@@ -124,7 +124,7 @@ class AddNew extends Component {
 
     return (
       <div className="form">
-        <h1 className="formLabel">Add a New Beer</h1>
+        <h1 className="form-label">Add a New Beer</h1>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Beer Name"
@@ -146,7 +146,7 @@ class AddNew extends Component {
             component={this.renderImgUpload.bind(this)}
           />
 
-          <div className="formButtons">
+          <div className="form-buttons">
             <Link to="/" className="back">
               Cancel
             </Link>
