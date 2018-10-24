@@ -3,6 +3,7 @@ import { Field, reduxForm, change } from 'redux-form';
 import Ratings from 'react-ratings-declarative';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { addNewBeer } from '../actions';
 
@@ -23,7 +24,7 @@ class AddNew extends Component {
     const {
       meta: { touched, error },
     } = field;
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+    const className = classNames('form-group', {'has-danger' : touched && error })
 
     return (
       <div className={className}>
@@ -32,7 +33,6 @@ class AddNew extends Component {
           type="text"
           className="form-control"
           {...field.input}
-          onBlur={console.log('hello')}
         />
         <div className="error-message">{touched ? error : ''}</div>
       </div>
