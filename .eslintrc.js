@@ -17,6 +17,10 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "indent": [
+            "warn",
+            2
+        ],
         "linebreak-style": [
             "error",
             "windows"
