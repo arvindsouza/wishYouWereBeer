@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline:400');
+
+$header-font: 'Fascinate Inline', cursive;
+$highlight-color: #ffefd4;
+
+.list-container {
+  border-radius: 5px;
+  width: 100%;
+}
+
+.widget-container svg {
+  width: 30px;
+  height: 30px;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.the-rating {
+  width: 250px;
+}
+
+.add-new-container {
+  text-align: right;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.header-row {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid $highlight-color;
+}
+
+.header {
+  font-family: $header-font;
+  font-size: 30px;
+  color: $highlight-color;
+}

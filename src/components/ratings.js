@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Ratings from 'react-ratings-declarative';
 
@@ -8,37 +8,44 @@ import { updateBeer } from '../actions/index';
 export var ratingChange = false;
 
 class RatingsComponent extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            rating: props.beerRating
-        }
+    this.state = {
+      rating: props.beerRating,
+    };
 
-        this.changeRating = this.changeRating.bind(this);
-    }
+    this.changeRating = this.changeRating.bind(this);
+  }
 
-    changeRating(id, rating){
-        this.props.updateBeer(id, rating);
- ratingChange = true;
-        this.setState({
-            rating: rating
-        })
-    }
+  changeRating(id, rating) {
+    this.props.updateBeer(id, rating);
+    ratingChange = true;
+    this.setState({
+      rating: rating,
+    });
+  }
 
-    render() {
-        return (
-            <Ratings rating={parseInt(this.state.rating)}
-                widgetRatedColors="blue"
-                changeRating={(rating) => { this.changeRating(this.props.beerId, rating) }}>
-                <Ratings.Widget />
-                <Ratings.Widget />
-                <Ratings.Widget />
-                <Ratings.Widget />
-                <Ratings.Widget />
-            </Ratings>
-        )
-    }
+  render() {
+    return (
+      <Ratings
+        rating={parseInt(this.state.rating)}
+        widgetRatedColors="blue"
+        changeRating={rating => {
+          this.changeRating(this.props.beerId, rating);
+        }}
+      >
+        <Ratings.Widget />
+        <Ratings.Widget />
+        <Ratings.Widget />
+        <Ratings.Widget />
+        <Ratings.Widget />
+      </Ratings>
+    );
+  }
 }
 
-export default connect(null, { updateBeer })(RatingsComponent);
+export default connect(
+  null,
+  { updateBeer },
+)(RatingsComponent);
