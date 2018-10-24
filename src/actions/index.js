@@ -1,22 +1,7 @@
-import firebase from 'firebase';
+import {db, } from '../config';
 
 export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
-
-const config = {
-    authDomain: process.env.REACT_APP_authDomain,
-    databaseURL: process.env.REACT_APP_databseURL,
-    projectId: process.env.REACT_APP_projectId,
-    storageBucket: process.env.REACT_APP_storageBucket,
-    messagingSenderId: process.env.REACT_APP_messagingSenderId
-};
-
-firebase.initializeApp(config);
-
-const db = firebase.firestore();
-db.settings({
-    timestampsInSnapshots: true
-})
 
 const url = 'http://localhost:3000/beers'
 
