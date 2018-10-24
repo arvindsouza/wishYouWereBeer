@@ -24,16 +24,14 @@ class AddNew extends Component {
     const {
       meta: { touched, error },
     } = field;
-    const className = classNames('form-group', {'has-danger' : touched && error })
+    const className = classNames('form-group', {
+      'has-danger': touched && error,
+    });
 
     return (
       <div className={className}>
         <label>{field.label}</label>
-        <input
-          type="text"
-          className="form-control"
-          {...field.input}
-        />
+        <input type="text" className="form-control" {...field.input} />
         <div className="error-message">{touched ? error : ''}</div>
       </div>
     );
@@ -101,7 +99,8 @@ class AddNew extends Component {
   }
 
   onSubmit(values) {
-    var temp, file;
+    let temp = null,
+      file = null;
 
     if (values.img && values.img[0]) {
       console.log(values.img);
