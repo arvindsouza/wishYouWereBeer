@@ -36,11 +36,11 @@ class BeerList extends Component {
     return _.map(this.props.beers, beer => {
       return (
         <div key={beer.id} className="row">
-          <div className="">{beer.data.beerName}</div>
+          <div className="beer-name">{beer.data.beerName}</div>
           <div className="the-rating ">
             <RatingsComponent beerRating={beer.data.rating} beerId={beer.id} />
           </div>
-          <div className="">{beer.data.desc}</div>
+          <div className="beer-description">{beer.data.desc}</div>
         </div>
       );
     });
@@ -53,13 +53,13 @@ class BeerList extends Component {
     return (
       <div className="list-container">
         <div className="add-new-container">
-          <button className="">Add New Beer</button>
+          <button >Add New Beer</button>
         </div>
 
         <div className="row header-row">
-          <div className="header ">Name</div>
-          <div className=" header ">Rating</div>
-          <div className=" header ">Description</div>
+          <div className="header-name">Name</div>
+          <div className="header-rating">Rating</div>
+          <div className="header-description">Description</div>
         </div>
         {this.returnBeerList()}
       </div>
