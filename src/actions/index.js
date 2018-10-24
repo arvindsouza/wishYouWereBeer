@@ -1,4 +1,4 @@
-import {db, } from '../config';
+import {db} from '../config';
 
 export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
