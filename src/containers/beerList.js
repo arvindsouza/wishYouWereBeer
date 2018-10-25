@@ -1,39 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import './list.scss';
 
 import { fetchBeers, updateBeer } from '../actions';
-import RatingsComponent, { ratingChange } from '../components/ratings';
+import RatingsComponent from '../components/ratings';
 
 class BeerList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showDesc: false,
-    };
-
-    this.showDesc = this.showDesc.bind(this);
-  }
-
   componentDidMount() {
     this.props.fetchBeers();
   }
 
-  shouldComponentUpdate() {
-    if (ratingChange) return false;
-    else return true;
-  }
-
-  showDesc(data) {
-    this.setState({
-      showDesc: data,
-    });
-  }
-
   returnBeerList() {
-    return _.map(this.props.beers, beer => {
+    return this.props.beers.map(beer => {
       return (
         <div key={beer.id} className="row">
           <div className="beer-name">{beer.data.beerName}</div>
@@ -47,13 +25,14 @@ class BeerList extends Component {
   }
 
   render() {
-    if (!this.props.beers) {
+    if (!this.props.beers[0]) {
       return <div>Loading...</div>;
     }
+
     return (
       <div className="list-container">
         <div className="add-new-container">
-          <button >Add New Beer</button>
+          <button>Add New Beer</button>
         </div>
 
         <div className="row header-row">

@@ -4,26 +4,28 @@ import Ratings from 'react-ratings-declarative';
 
 import { updateBeer } from '../actions/index';
 
-export var ratingChange = false;
-
 class RatingsComponent extends Component {
+  getRating = () => {
+    return this.props.beerRating;
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      rating: props.beerRating,
+      rating: this.getRating.call(),
     };
   }
 
   changeRating = (id, rating) => {
     this.props.updateBeer(id, rating);
-    ratingChange = true;
     this.setState({
-      rating: rating,
+      rating,
     });
   };
 
   render() {
+    console.log(this.state.rating);
     return (
       <Ratings
         rating={parseInt(this.state.rating)}

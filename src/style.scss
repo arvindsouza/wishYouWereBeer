@@ -1,11 +1,12 @@
+$color: #e57512;
 
 html{
     height:100%;
-    background-color: #e57512;
+    background-color: $color;
 }
 
 body{
-    background-color: #e57512;
+    background-color: $color;
     height: 100%;
 }
 

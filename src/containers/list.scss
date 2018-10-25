@@ -45,37 +45,37 @@ $highlight-color: #ffefd4;
   color: $highlight-color;
 }
 
-.header-name{
-    @extend %header;
-    width:10%;
+.header-name {
+  @extend %header;
+  width: 10%;
 }
 
-.header-rating{
-    @extend %header;
-    width:45%;
+.header-rating {
+  @extend %header;
+  width: 45%;
 }
 
-.header-description{
-    @extend %header;
-    width:45%;
+.header-description {
+  @extend %header;
+  width: 45%;
 }
 
-%shared-content-styling{
-    font-size: 20px;
-    text-align: left;
+%shared-content-styling {
+  font-size: 20px;
+  text-align: left;
 }
 
-.beer-name{
-    @extend %shared-content-styling;
-    width:10%;
+.beer-name {
+  @extend %shared-content-styling;
+  width: 10%;
 }
 
-.the-rating{
-    @extend %shared-content-styling;
-    width:45%;
+.the-rating {
+  @extend %shared-content-styling;
+  width: 45%;
 }
 
-.beer-description{
-    @extend %shared-content-styling;
-    width:45%;
+.beer-description {
+  @extend %shared-content-styling;
+  width: 45%;
 }
