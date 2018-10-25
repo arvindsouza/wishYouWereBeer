@@ -1,45 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
 import { fetchBeers, updateBeer } from '../actions';
-import RatingsComponent, { ratingChange } from '../components/ratings';
+import RatingsComponent from '../components/ratings';
 
 class BeerList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showDesc: false,
-    };
-
-    this.showDesc = this.showDesc.bind(this);
-  }
 
   componentDidMount() {
     this.props.fetchBeers();
   }
 
-  shouldComponentUpdate() {
-    if (ratingChange) return false;
-    else return true;
-  }
-
-  showDesc(data) {
-    this.setState({
-      showDesc: data,
-    });
-  }
-
   returnBeerList() {
-    return _.map(this.props.beers, beer => {
+    return this.props.beer.map(beer => {
       return (
         <tr
           key={beer.id}
-          onClick={data => {
-            this.showDesc(beer.id);
-          }}
         >
           <td>{beer.beerName}</td>
           <td className="the-rating">

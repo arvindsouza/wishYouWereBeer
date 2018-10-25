@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Ratings from 'react-ratings-declarative';
 
 import { updateBeer } from '../actions/index';
-
-export var ratingChange = false;
 
 class RatingsComponent extends Component {
   constructor(props) {
@@ -18,9 +15,8 @@ class RatingsComponent extends Component {
 
   changeRating = (id, rating) => {
     this.props.updateBeer(id, rating);
-    ratingChange = true;
     this.setState({
-      rating: rating,
+      rating,
     });
   };
 

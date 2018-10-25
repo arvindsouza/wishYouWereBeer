@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, change } from 'redux-form';
 import Ratings from 'react-ratings-declarative';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -12,7 +11,16 @@ class AddNew extends Component {
     super(props);
 
     this.state = {
+      touched: {
+        beerName: false,
+        rating: false,
+        desc: false,
+      },
+      beerName: '',
       rating: 1,
+      desc: '',
+      file: '',
+      isDisabled: true,
     };
   }
 
@@ -20,32 +28,55 @@ class AddNew extends Component {
     this.setState({ rating: newRating });
   };
 
-  renderField(field) {
-    const {
-      meta: { touched, error },
-    } = field;
-    const className = classNames('form-group', {
-      'has-danger': touched && error,
+  handleChange = field => event => {
+    this.setState({
+      [field]: event.target.value,
+    });
+  };
+
+  validate = field => () => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
     });
 
+    if (this.state.beerName && this.state.beerName !== '') {
+      if (this.state.desc && this.state.desc !== '')
+        this.setState({
+          isDisabled: false,
+        });
+    }
+  };
+
+  renderField = (label, field) => {
+    let classnames = null;
+
+    if (field === 'beerName')
+      classnames = classNames('form-group', {
+        'has-danger': this.state.touched.beerName && this.state.beerName === '',
+      });
+    else
+      classnames = classNames('form-group', {
+        'has-danger': this.state.touched.desc && this.state.desc === '',
+      });
+
     return (
-      <div className={className}>
-        <label>{field.label}</label>
-        <input type="text" className="form-control" {...field.input} />
-        {touched ? <div className="error-message">{error}</div> : null}
+      <div className={classnames}>
+        <label>{label}</label>
+        <input
+          className="form-control"
+          type="text"
+          value={field === 'beerName' ? this.state.beerName : this.state.desc}
+          onChange={this.handleChange(field)}
+          onBlur={this.validate(field)}
+        />
       </div>
     );
-  }
+  };
 
-  renderNumberField(field) {
-    const {
-      meta: { touched, error },
-    } = field;
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
-
+  renderNumberField = field => {
     return (
-      <div className={className} id="rating-field">
-        <label>{field.label}</label>
+      <div className="rating" id="rating-field">
+        <label>Enter the rating</label>
         <label className="stars">
           <Ratings
             rating={this.state.rating}
@@ -63,93 +94,80 @@ class AddNew extends Component {
         <input
           type="number"
           className="form-control rating-input"
-          onChange={this.props.change(
-            'NewBeerForm',
-            'rating',
-            this.state.rating,
-          )}
-          {...field.input}
+          onChange={this.handleChange(field)}
           value={this.state.rating}
           readOnly
         />
-        <div className="error-message">{touched ? error : ''}</div>
       </div>
     );
-  }
+  };
 
-  renderImgUpload(field) {
-    delete field.input.value;
-
+  renderImgUpload = field => {
     return (
       <div className="file-area">
-        <label>{field.label}: &nbsp; </label>
+        <label>Image: &nbsp; </label>
         <div className="file-overlay">
           <input
+            onChange={this.handleChange(field)}
             className="file-input"
-            {...field.input}
             type="file"
             accept=".png, .jpeg, .jpg"
           />
         </div>
-        <div>
-          {field.input.img && field.input.img[0] ? this.state.fileName : null}
-        </div>
       </div>
     );
-  }
+  };
 
-  onSubmit(values) {
+  onSubmit = e => {
+    e.preventDefault();
+
     let temp = null,
       file = null;
 
-    if (values.img && values.img[0]) {
-      console.log(values.img);
-      temp = values.img[0].name;
-      file = values.img[0];
-      values.img = temp;
+    if (e.target[3].files && e.target[3].files[0]) {
+      temp = e.target[3].files[0].name;
+      file = e.target[3].files[0];
     } else {
       temp = null;
       file = null;
-      values.img = temp;
     }
+
+    let values = {
+      beerName: e.target[0].value,
+      rating: e.target[1].value,
+      desc: e.target[2].value,
+      img: temp,
+    };
 
     this.props.addNewBeer(values, file).then(() => {
       this.props.history.push('/beers');
     });
-  }
+  };
 
   render() {
-    const { handleSubmit } = this.props;
-
     return (
       <div className="form">
         <h1 className="form-label">Add a New Beer</h1>
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field
-            label="Beer Name"
-            name="beerName"
-            component={this.renderField}
-          />
-
-          <Field
-            label="Rating"
-            name="rating"
-            component={this.renderNumberField.bind(this)}
-          />
-
-          <Field label="Description" name="desc" component={this.renderField} />
-
-          <Field
-            label="image"
-            name="img"
-            component={this.renderImgUpload.bind(this)}
-          />
-
+        <form onSubmit={this.onSubmit}>
+          {this.renderField('Beer name', 'beerName')}
+          {this.state.touched.beerName && this.state.beerName === '' ? (
+            <div className="errorMessage">Enter a beer name</div>
+          ) : null}
+          {this.renderNumberField('rating')}
+          {this.renderField('Description', 'desc')}
+          {this.state.touched.desc && this.state.desc === '' ? (
+            <div className="errorMessage">Enter a description</div>
+          ) : null}
+          {this.renderImgUpload('file')}
           <div className="form-buttons">
             <Link to="/" className="back">
               Cancel
             </Link>
-            <button className="submit" type="submit">
+            <button
+              disabled={this.state.isDisabled}
+              className="submit"
+              type="submit"
+            >
               Submit
             </button>
           </div>
@@ -159,40 +177,7 @@ class AddNew extends Component {
   }
 }
 
-function validate(values) {
-  const errors = {};
-
-  if (!values.beerName) {
-    errors.beerName = 'Enter the Beer Name';
-  }
-
-  if (!values.rating) {
-    errors.rating = 'Enter the Rating';
-  }
-
-  if (
-    values.rating &&
-    (values.rating > 5 || values.rating < 1 || values.rating % 1 !== 0)
-  ) {
-    errors.rating = 'Enter a valid rating';
-  }
-
-  if (!values.desc) {
-    errors.desc = 'Enter a description';
-  }
-
-  return errors;
-}
-
-export default reduxForm({
-  validate,
-  initialValues: {
-    img: FileList,
-  },
-  form: 'NewBeerForm',
-})(
-  connect(
-    null,
-    { change, addNewBeer },
-  )(AddNew),
-);
+export default connect(
+  null,
+  { addNewBeer },
+)(AddNew);

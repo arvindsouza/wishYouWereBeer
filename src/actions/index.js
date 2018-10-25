@@ -1,11 +1,17 @@
 import axios from 'axios';
-import { db, storage } from '../config';
+import { config, storage } from '../config';
+import firebase from 'firebase';
 
 export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
 export const POST_BEER = 'POST_BEER';
 
 const url = 'http://localhost:3000/beers';
+
+export const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true,
+});
 
 export function fetchBeers() {
   const request = axios.get(url);
