@@ -25,7 +25,6 @@ class RatingsComponent extends Component {
   };
 
   render() {
-    console.log(this.state.rating);
     return (
       <Ratings
         rating={parseInt(this.state.rating)}

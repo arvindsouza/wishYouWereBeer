@@ -1,5 +1,3 @@
-import firebase from 'firebase';
-
 export const config = {
   authDomain: process.env.REACT_APP_authDomain,
   databaseURL: process.env.REACT_APP_databaseURL,
