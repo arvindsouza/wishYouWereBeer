@@ -4,6 +4,8 @@ import firebase from 'firebase';
 export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
 
+firebase.initializeApp(config);
+
 const db = firebase.firestore();
 db.settings({
   timestampsInSnapshots: true,

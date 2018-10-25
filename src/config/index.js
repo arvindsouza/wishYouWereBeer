@@ -8,4 +8,3 @@ export const config = {
   messagingSenderId: process.env.REACT_APP_messagingSenderId,
 };
 
-firebase.initializeApp(config);
