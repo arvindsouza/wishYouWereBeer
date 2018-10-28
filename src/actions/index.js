@@ -6,7 +6,7 @@ export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
 export const POST_BEER = 'POST_BEER';
 
-const url = 'http://localhost:3000/beers';
+const url = 'http://localhost:3000/beers/db.json';
 
 export const db = firebase.firestore();
 db.settings({

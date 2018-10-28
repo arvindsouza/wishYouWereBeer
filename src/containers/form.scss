@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline:400|Luckiest+Guy:400|Roboto+Mono:400');
+
+$title-font: 'Fascinate Inline', cursive;
+$field-font: 'Luckiest Guy', cursive;
+$text-color: #ffefd4;
+$rating-color: #e57512;
+$error-color: #a5260a;
+$error-font: 'Roboto Mono', monospace;
+
+.form{
+    display: flex;
+    flex-direction: column;
+    color: $text-color;
+    width:100%;
+    padding: 10px 30px;
+}
+
+.form-label{
+    font-family: $title-font;
+    font-size: 40px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.field-label{
+    font-family: $field-font;
+    font-size:20px;
+    margin-bottom: 5px;
+}
+
+.form-control{
+    border-radius: 5px;
+    height: 27px;
+    margin-bottom: 10px;
+    border: 2px solid $text-color;
+}
+
+.rating-input{
+    background-color: $rating-color;
+    margin-bottom: 20px;
+}
+
+.error-message{
+   color: $error-color;
+   font-family: $error-font;
+   font-size: 20px;
+   margin-bottom: 10px;
+}
+
+.form-buttons{
+    margin-top: 20px;
+}
+
+.buttons{
+    padding:10px;
+    background-color: #ffefd4;
+    font-family: $error-font;
+    border: 1px solid $text-color;
+}
+
+.submit{
+    margin-left: 20px;
+}

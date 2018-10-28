@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
+import './form.scss';
 import { addNewBeer } from '../actions';
 
 class AddNew extends Component {
@@ -61,7 +62,7 @@ class AddNew extends Component {
 
     return (
       <div className={classnames}>
-        <label>{label}</label>
+        <label className='field-label'>{label}</label>
         <input
           className="form-control"
           type="text"
@@ -75,8 +76,8 @@ class AddNew extends Component {
 
   renderNumberField = field => {
     return (
-      <div className="rating" id="rating-field">
-        <label>Enter the rating</label>
+      <div className="form-group" id="rating-field">
+        <label className='field-label'>Enter the rating</label>
         <label className="stars">
           <Ratings
             rating={this.state.rating}
@@ -105,7 +106,7 @@ class AddNew extends Component {
   renderImgUpload = field => {
     return (
       <div className="file-area">
-        <label>Image: &nbsp; </label>
+        <label className='field-label'>Image: &nbsp; </label>
         <div className="file-overlay">
           <input
             onChange={this.handleChange(field)}
@@ -151,21 +152,24 @@ class AddNew extends Component {
         <form onSubmit={this.onSubmit}>
           {this.renderField('Beer name', 'beerName')}
           {this.state.touched.beerName && this.state.beerName === '' ? (
-            <div className="errorMessage">Enter a beer name</div>
+            <div className="error-message">Enter a beer name</div>
           ) : null}
+
           {this.renderNumberField('rating')}
+
           {this.renderField('Description', 'desc')}
           {this.state.touched.desc && this.state.desc === '' ? (
-            <div className="errorMessage">Enter a description</div>
+            <div className="error-message">Enter a description</div>
           ) : null}
+
           {this.renderImgUpload('file')}
           <div className="form-buttons">
-            <Link to="/" className="back">
+            <Link to="/" className="buttons back">
               Cancel
             </Link>
             <button
               disabled={this.state.isDisabled}
-              className="submit"
+              className="buttons submit"
               type="submit"
             >
               Submit

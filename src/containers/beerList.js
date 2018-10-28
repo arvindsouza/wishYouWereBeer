@@ -12,7 +12,7 @@ class BeerList extends Component {
   }
 
   returnBeerList() {
-    return this.props.beer.map(beer => {
+    return this.props.beers.map(beer => {
       return (
         <tr
           key={beer.id}
@@ -24,14 +24,13 @@ class BeerList extends Component {
           <td>{beer.desc}</td>
         </tr>
       );
-    });
+    }); 
   }
 
   render() {
-    if (!this.props.beers) {
+    if (!this.props.beers[0] ) {
       return <div>Loading...</div>;
     }
-
     return (
       <div className="list-container">
         <div className="add-new-container">
