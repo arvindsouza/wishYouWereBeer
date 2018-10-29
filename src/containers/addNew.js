@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
+import './form.scss';
 import { addNewBeer } from '../actions';
 
 class AddNew extends Component {
