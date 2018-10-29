@@ -1,0 +1,18 @@
+$color: #e57512;
+
+html {
+  height: 100%;
+  background-color: $color;
+}
+
+body {
+  background-color: $color;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 30px;
+}

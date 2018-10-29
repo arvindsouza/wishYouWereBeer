@@ -1,89 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import './list.scss';
 
 import { fetchBeers, updateBeer } from '../actions';
-import RatingsComponent, {ratingChange} from '../components/ratings';
+import RatingsComponent from '../components/ratings';
 
 class BeerList extends Component {
+  componentDidMount() {
+    this.props.fetchBeers();
+  }
 
-    constructor(props){
-        super(props);
+  returnBeerList() {
+    return this.props.beers.map(beer => {
+      return (
+        <div key={beer.id} className="row">
+          <div className="beer-name">{beer.data.beerName}</div>
+          <div className="the-rating ">
+            <RatingsComponent beerRating={beer.data.rating} beerId={beer.id} />
+          </div>
+          <div className="beer-description">{beer.data.desc}</div>
+        </div>
+      );
+    });
+  }
 
-        this.state = {
-            showDesc: false
-        }
-
-        this.showDesc = this.showDesc.bind(this);
+  render() {
+    if (!this.props.beers.length) {
+      return <div>Loading...</div>;
     }
 
-    componentDidMount() {
-        this.props.fetchBeers();
-    }
+    return (
+      <div className="list-container">
+        <div className="add-new-container">
+          <button>Add New Beer</button>
+        </div>
 
-    shouldComponentUpdate(){
-        if(ratingChange)
-        return false;
-        else
-        return true;
-    }
-
-    showDesc(data){
-        this.setState({
-            showDesc: data
-        })
-
-        console.log(data);
-    }
-
-    returnBeerList() {
-
-        return _.map(this.props.beers, beer => {
-            
-            return (
-                <tr  key={beer.id}  onClick = {(data) => {this.showDesc(beer.id)}}>
-                <td>{beer.beerName}</td>
-                <td className='theRating'>< RatingsComponent beerRating = {beer.rating}  beerId={beer.id}/></td>
-                <td >{beer.desc}</td>
-                </tr>
-            )
-        })
-    }
-
-    render() {
-        if (!this.props.beers) {
-            return (
-                <div>Loading...</div>
-            )
-        }
-        
-        return (
-            <div className='listContainer'>
-                <div className='text-xs-right'>
-                    <button className='btn btn-primary' >Add New Beer</button>
-                </div>
-
-                <table className='table table-hover' >
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Rating</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {this.returnBeerList()}
-                </tbody>
-                </table>
-            </div>
-        )
-    }
+        <div className="row header-row">
+          <div className="header-name">Name</div>
+          <div className="header-rating">Rating</div>
+          <div className="header-description">Description</div>
+        </div>
+        {this.returnBeerList()}
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state) {
-    return { beers: state.beers }
+  return { beers: state.beers };
 }
 
-
-
-export default connect(mapStateToProps, { fetchBeers, updateBeer })(BeerList);
+export default connect(
+  mapStateToProps,
+  { fetchBeers, updateBeer },
+)(BeerList);
