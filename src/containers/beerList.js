@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './list.scss';
 
 import { fetchBeers, updateBeer } from '../actions';
@@ -32,7 +33,7 @@ class BeerList extends Component {
     return (
       <div className="list-container">
         <div className="add-new-container">
-          <button>Add New Beer</button>
+          <Link to="/new">Add New Beer</Link>
         </div>
 
         <div className="row header-row">

@@ -10,6 +10,7 @@ import reducers from './reducers';
 import { applyMiddleware, createStore } from 'redux';
 
 import BeerList from './containers/beerList';
+import AddNew from './containers/addNew';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -17,7 +18,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <Switch>
-        <Route path="/beers/new" />
+        <Route path="/new" component={AddNew}/>
         <Route path="/" component={BeerList} />
       </Switch>
     </BrowserRouter>

@@ -1,10 +1,9 @@
-import { config } from '../config';
+import { config, storage } from '../config';
 import firebase from 'firebase';
 
 export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
-
-firebase.initializeApp(config);
+export const POST_BEER = 'POST_BEER';
 
 const db = firebase.firestore();
 db.settings({
@@ -33,6 +32,28 @@ export function updateBeer(id, rating) {
 
   return {
     type: UPDATE_BEER,
+    payload: request,
+  };
+}
+
+export function addNewBeer(data, file) {
+  const request = db
+    .collection('Beers')
+    .doc()
+    .set(data)
+    .then(() => {
+      return new Promise(resolve => {
+        return resolve('Success');
+      });
+    });
+
+  if (data.img) {
+    var refA = storage.child(data.img);
+    refA.put(file);
+  }
+
+  return {
+    type: POST_BEER,
     payload: request,
   };
 }
