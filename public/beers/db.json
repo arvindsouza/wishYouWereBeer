@@ -1,5 +1,4 @@
-{
-  "beers": [
+[
     {
       "beerName": "Heineken",
       "rating": 4,
@@ -12,5 +11,4 @@
       "rating": 1,
       "desc": "The Worst"
     }
-  ]
-}
+]

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './styles.scss';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -11,13 +10,14 @@ import reducers from './reducers';
 import { applyMiddleware, createStore } from 'redux';
 
 import BeerList from './containers/beerList';
+import AddNew from './containers/addNew';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(<Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
         <Switch>
-            <Route path='/beers/new' ></Route>
+            <Route path='/new' component={AddNew}></Route>
             <Route path = '/' component = { BeerList } ></Route>
         </Switch>
     </BrowserRouter>
