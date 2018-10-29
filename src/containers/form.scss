@@ -7,60 +7,60 @@ $rating-color: #e57512;
 $error-color: #a5260a;
 $error-font: 'Roboto Mono', monospace;
 
-.form{
-    display: flex;
-    flex-direction: column;
-    color: $text-color;
-    width:100%;
-    padding: 10px 30px;
+.form {
+  display: flex;
+  flex-direction: column;
+  color: $text-color;
+  width: 100%;
+  padding: 10px 30px;
 }
 
-.form-label{
-    font-family: $title-font;
-    font-size: 40px;
+.form-label {
+  font-family: $title-font;
+  font-size: 40px;
 }
 
-.form-group{
-    display: flex;
-    flex-direction: column;
+.form-group {
+  display: flex;
+  flex-direction: column;
 }
 
-.field-label{
-    font-family: $field-font;
-    font-size:20px;
-    margin-bottom: 5px;
+.field-label {
+  font-family: $field-font;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
-.form-control{
-    border-radius: 5px;
-    height: 27px;
-    margin-bottom: 10px;
-    border: 2px solid $text-color;
+.form-control {
+  border-radius: 5px;
+  height: 27px;
+  margin-bottom: 10px;
+  border: 2px solid $text-color;
 }
 
-.rating-input{
-    background-color: $rating-color;
-    margin-bottom: 20px;
+.rating-input {
+  background-color: $rating-color;
+  margin-bottom: 20px;
 }
 
-.error-message{
-   color: $error-color;
-   font-family: $error-font;
-   font-size: 20px;
-   margin-bottom: 10px;
+.error-message {
+  color: $error-color;
+  font-family: $error-font;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
-.form-buttons{
-    margin-top: 20px;
+.form-buttons {
+  margin-top: 20px;
 }
 
-.buttons{
-    padding:10px;
-    background-color: #ffefd4;
-    font-family: $error-font;
-    border: 1px solid $text-color;
+.buttons {
+  padding: 10px;
+  background-color: #ffefd4;
+  font-family: $error-font;
+  border: 1px solid $text-color;
 }
 
-.submit{
-    margin-left: 20px;
+.submit {
+  margin-left: 20px;
 }
