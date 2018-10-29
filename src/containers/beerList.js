@@ -25,7 +25,7 @@ class BeerList extends Component {
   }
 
   render() {
-    if (!this.props.beers[0]) {
+    if (!this.props.beers.length) {
       return <div>Loading...</div>;
     }
 
