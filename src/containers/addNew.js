@@ -35,11 +35,7 @@ class AddNew extends Component {
         [field]: event.target.value,
       },
       () => {
-        if (
-          this.state.beerName &&
-          this.state.beerName !== '' &&
-          (this.state.desc && this.state.desc !== '')
-        ) {
+        if (this.state.beerName !== '' && this.state.desc !== '') {
           this.setState({
             isDisabled: false,
           });
@@ -93,6 +89,7 @@ class AddNew extends Component {
             widgetEmptyColors="rgb(255,239,212)"
             widgetHoverColors="rgb(173, 21, 21)"
             changeRating={this.changeTheRating}
+            widgetDimensions='30px'
           >
             <Ratings.Widget />
             <Ratings.Widget />
