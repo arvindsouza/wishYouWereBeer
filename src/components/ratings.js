@@ -13,7 +13,7 @@ class RatingsComponent extends Component {
     super(props);
 
     this.state = {
-      rating: this.getRating.call(),
+      rating: this.getRating()
     };
   }
 
