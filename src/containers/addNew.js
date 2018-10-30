@@ -28,7 +28,7 @@ class AddNew extends Component {
     this.setState({ rating: newRating });
   };
 
-  disableButton = (beerName, desc) => {
+  setButtonDisabledValue = (beerName, desc) => {
     if (beerName !== '' && desc !== '') {
       this.setState({
         isDisabled: false,
@@ -45,7 +45,7 @@ class AddNew extends Component {
         [field]: event.target.value,
       },
       () => {
-        this.disableButton(this.state.beerName, this.state.desc);
+        this.setButtonDisabledValue(this.state.beerName, this.state.desc);
       },
     );
   };
