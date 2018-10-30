@@ -3,6 +3,7 @@ import Ratings from 'react-ratings-declarative';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { Formik, Form, Field } from 'formik';
 
 import './form.scss';
 import { addNewBeer } from '../actions';
@@ -10,6 +11,12 @@ import { addNewBeer } from '../actions';
 const emptyColors = 'rgb(255,239,212)';
 const hoverColors = 'rgb(173, 21, 21)';
 const dimensions = '30px';
+
+const initValues = {
+  beerName:'',
+  rating: 1,
+  desc:''
+}
 
 class AddNew extends Component {
   state = {
@@ -40,12 +47,12 @@ class AddNew extends Component {
   };
 
   handleChange = field => event => {
+    console.log('hello');
     this.setState(
       {
         [field]: event.target.value,
       },
       () => {
-        this.setButtonDisabledValue(this.state.beerName, this.state.desc);
       },
     );
   };
@@ -71,12 +78,10 @@ class AddNew extends Component {
     return (
       <div className={classnames}>
         <label className="field-label">{label}</label>
-        <input
+        <Field
           className="form-control"
           type="text"
-          value={field === 'beerName' ? this.state.beerName : this.state.desc}
-          onChange={this.handleChange(field)}
-          onBlur={this.validate(field)}
+          name={field}
         />
       </div>
     );
@@ -101,13 +106,16 @@ class AddNew extends Component {
             <Ratings.Widget />
           </Ratings>
         </label>
-        <input
+        <Field
           type="number"
           className="form-control rating-input"
-          onChange={this.handleChange(field)}
           value={this.state.rating}
+          onChange={() => { this.handleChange(field)
+        }}
+          name='rating'
           readOnly
         />
+        
       </div>
     );
   };
@@ -153,36 +161,23 @@ class AddNew extends Component {
 
   render() {
     return (
-      <div className="form">
-        <h1 className="form-label">Add a New Beer</h1>
-        <form onSubmit={this.onSubmit}>
+      <Formik 
+      initialValues = {initValues}
+      onSubmit = {values => {
+        console.log(JSON.stringify(values,null,2));
+        //
+      }}>
+       {({errors, touched, handleSubmit, isValid, setFieldValue}) => (
+        <Form >
           {this.renderField('Beer name', 'beerName')}
-          {this.state.touched.beerName && this.state.beerName === '' ? (
-            <div className="error-message">Enter a beer name</div>
-          ) : null}
 
           {this.renderNumberField('rating')}
 
-          {this.renderField('Description', 'desc')}
-          {this.state.touched.desc && this.state.desc === '' ? (
-            <div className="error-message">Enter a description</div>
-          ) : null}
 
-          {this.renderImgUpload('file')}
-          <div className="form-buttons">
-            <Link to="/" className="buttons back">
-              Cancel
-            </Link>
-            <button
-              disabled={this.state.isDisabled}
-              className="buttons submit"
-              type="submit"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
+          <button type='submit' disabled={!isValid}>Submit</button>
+        </Form>
+    )}
+      </Formik>
     );
   }
 }
