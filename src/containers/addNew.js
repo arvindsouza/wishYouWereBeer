@@ -13,54 +13,27 @@ const hoverColors = 'rgb(173, 21, 21)';
 const dimensions = '30px';
 
 const initValues = {
-  beerName:'',
+  beerName: '',
   rating: 1,
-  desc:''
-}
+  desc: '',
+  img: ''
+};
 
 class AddNew extends Component {
   state = {
     touched: {
       beerName: false,
       rating: false,
-      desc: false,
+      desc: false
     },
     beerName: '',
     rating: 1,
     desc: '',
-    isDisabled: true,
+    isDisabled: true
   };
 
   changeTheRating = newRating => {
     this.setState({ rating: newRating });
-  };
-
-  setButtonDisabledValue = (beerName, desc) => {
-    if (beerName !== '' && desc !== '') {
-      this.setState({
-        isDisabled: false,
-      });
-    } else
-      this.setState({
-        isDisabled: true,
-      });
-  };
-
-  handleChange = field => event => {
-    console.log('hello');
-    this.setState(
-      {
-        [field]: event.target.value,
-      },
-      () => {
-      },
-    );
-  };
-
-  validate = field => () => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true },
-    });
   };
 
   renderField = (label, field) => {
@@ -68,91 +41,32 @@ class AddNew extends Component {
 
     if (field === 'beerName')
       classnames = classNames('form-group', {
-        'has-danger': this.state.touched.beerName && this.state.beerName === '',
+        'has-danger': this.state.touched.beerName && this.state.beerName === ''
       });
     else
       classnames = classNames('form-group', {
-        'has-danger': this.state.touched.desc && this.state.desc === '',
+        'has-danger': this.state.touched.desc && this.state.desc === ''
       });
 
     return (
       <div className={classnames}>
         <label className="field-label">{label}</label>
-        <Field
-          className="form-control"
-          type="text"
-          name={field}
-        />
+        <Field className="form-control" type="text" name={field} />
       </div>
     );
   };
 
-  renderNumberField = field => {
-    return (
-      <div className="form-group" id="rating-field">
-        <label className="field-label">Enter the rating</label>
-        <label className="stars">
-          <Ratings
-            rating={this.state.rating}
-            widgetEmptyColors={emptyColors}
-            widgetHoverColors={hoverColors}
-            changeRating={this.changeTheRating}
-            widgetDimensions={dimensions}
-          >
-            <Ratings.Widget />
-            <Ratings.Widget />
-            <Ratings.Widget />
-            <Ratings.Widget />
-            <Ratings.Widget />
-          </Ratings>
-        </label>
-        <Field
-          type="number"
-          className="form-control rating-input"
-          value={this.state.rating}
-          onChange={() => { this.handleChange(field)
-        }}
-          name='rating'
-          readOnly
-        />
-        
-      </div>
-    );
-  };
-
-  renderImgUpload = () => {
-    return (
-      <div className="file-area">
-        <label className="field-label">Image: &nbsp; </label>
-        <div className="file-overlay">
-          <input
-            className="file-input"
-            type="file"
-            accept=".png, .jpeg, .jpg"
-          />
-        </div>
-      </div>
-    );
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-
+  onSubmit = values => {
     let imgName = null,
       file = null;
 
-    //check if there is a filedata object and filedata object is not null
-    if (e.target[3].files && e.target[3].files[0]) {
-      imgName = e.target[3].files[0].name;
-      file = e.target[3].files[0];
+    if (values.file) {
+      imgName = values.file.name;
+      file = values.file;
     }
+    values.img = imgName;
 
-    let values = {
-      beerName: this.state.beerName,
-      rating: this.state.rating,
-      desc: this.state.desc,
-      img: imgName,
-    };
+    delete values.file;
 
     this.props.addNewBeer(values, file).then(() => {
       this.props.history.push('/beers');
@@ -161,22 +75,90 @@ class AddNew extends Component {
 
   render() {
     return (
-      <Formik 
-      initialValues = {initValues}
-      onSubmit = {values => {
-        console.log(JSON.stringify(values,null,2));
-        //
-      }}>
-       {({errors, touched, handleSubmit, isValid, setFieldValue}) => (
-        <Form >
-          {this.renderField('Beer name', 'beerName')}
+      <Formik
+        initialValues={initValues}
+        validate={values => {
+          let errors = {};
 
-          {this.renderNumberField('rating')}
+          if (!values.beerName) errors.beerName = 'Enter a beer name';
 
+          if (!values.desc) errors.desc = 'Enter a description';
 
-          <button type='submit' disabled={!isValid}>Submit</button>
-        </Form>
-    )}
+          return errors;
+        }}
+        onSubmit={values => {
+          this.onSubmit(values);
+        }}
+      >
+        {({ errors, isValid, setFieldValue }) => (
+          <div className="form">
+            <Form>
+              <h1 className="form-label">Add a New Beer</h1>
+
+              {this.renderField('Beer name', 'beerName')}
+              {errors.beerName ? (
+                <div className="error-message">{errors.beerName}</div>
+              ) : null}
+
+              <div className="form-group" id="rating-field">
+                <label className="field-label">Enter the rating</label>
+                <label className="stars">
+                  <Ratings
+                    rating={this.state.rating}
+                    widgetEmptyColors={emptyColors}
+                    widgetHoverColors={hoverColors}
+                    changeRating={newRating => {
+                      this.changeTheRating(newRating);
+                      setFieldValue('rating', newRating, false);
+                    }}
+                    widgetDimensions={dimensions}
+                  >
+                    <Ratings.Widget />
+                    <Ratings.Widget />
+                    <Ratings.Widget />
+                    <Ratings.Widget />
+                    <Ratings.Widget />
+                  </Ratings>
+                </label>
+
+                <Field
+                  type="number"
+                  className="form-control rating-input"
+                  value={this.state.rating}
+                  id="the-rating"
+                  name="rating"
+                  readOnly
+                />
+              </div>
+
+              {this.renderField('Description', 'desc')}
+              {errors.desc ? (
+                <div className="error-message">{errors.desc}</div>
+              ) : null}
+
+              <div className="file-area">
+                <label className="field-label">Image: &nbsp; </label>
+                <div className="file-overlay">
+                  <Field
+                    className="file-input"
+                    type="file"
+                    name="img"
+                    accept=".png, .jpeg, .jpg"
+                    onChange={e => {
+                      setFieldValue('file', e.currentTarget.files[0]);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <Link to="/">Cancel</Link>
+
+              <button type="submit" disabled={!isValid}>
+                Submit
+              </button>
+            </Form>
+          </div>
+        )}
       </Formik>
     );
   }
@@ -184,5 +166,5 @@ class AddNew extends Component {
 
 export default connect(
   null,
-  { addNewBeer },
+  { addNewBeer }
 )(AddNew);
