@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Ratings from 'react-ratings-declarative';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 import { Formik, Form, Field } from 'formik';
 
 import './form.scss';
@@ -16,20 +15,12 @@ const initValues = {
   beerName: '',
   rating: 1,
   desc: '',
-  img: ''
+  img: '',
 };
 
 class AddNew extends Component {
   state = {
-    touched: {
-      beerName: false,
-      rating: false,
-      desc: false
-    },
-    beerName: '',
     rating: 1,
-    desc: '',
-    isDisabled: true
   };
 
   changeTheRating = newRating => {
@@ -37,16 +28,7 @@ class AddNew extends Component {
   };
 
   renderField = (label, field) => {
-    let classnames = null;
-
-    if (field === 'beerName')
-      classnames = classNames('form-group', {
-        'has-danger': this.state.touched.beerName && this.state.beerName === ''
-      });
-    else
-      classnames = classNames('form-group', {
-        'has-danger': this.state.touched.desc && this.state.desc === ''
-      });
+    let classnames = 'form-group';
 
     return (
       <div className={classnames}>
@@ -166,5 +148,5 @@ class AddNew extends Component {
 
 export default connect(
   null,
-  { addNewBeer }
+  { addNewBeer },
 )(AddNew);
