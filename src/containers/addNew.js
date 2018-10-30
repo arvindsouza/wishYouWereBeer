@@ -7,26 +7,36 @@ import classNames from 'classnames';
 import './form.scss';
 import { addNewBeer } from '../actions';
 
-class AddNew extends Component {
-  constructor(props) {
-    super(props);
+const emptyColors = 'rgb(255,239,212)';
+const hoverColors = 'rgb(173, 21, 21)';
+const dimensions = '30px';
 
-    this.state = {
-      touched: {
-        beerName: false,
-        rating: false,
-        desc: false,
-      },
-      beerName: '',
-      rating: 1,
-      desc: '',
-      file: '',
-      isDisabled: true,
-    };
-  }
+class AddNew extends Component {
+  state = {
+    touched: {
+      beerName: false,
+      rating: false,
+      desc: false,
+    },
+    beerName: '',
+    rating: 1,
+    desc: '',
+    isDisabled: true,
+  };
 
   changeTheRating = newRating => {
     this.setState({ rating: newRating });
+  };
+
+  disableButton = (beerName, desc) => {
+    if (beerName !== '' && desc !== '') {
+      this.setState({
+        isDisabled: false,
+      });
+    } else
+      this.setState({
+        isDisabled: true,
+      });
   };
 
   handleChange = field => event => {
@@ -35,14 +45,7 @@ class AddNew extends Component {
         [field]: event.target.value,
       },
       () => {
-        if (this.state.beerName !== '' && this.state.desc !== '') {
-          this.setState({
-            isDisabled: false,
-          });
-        } else
-          this.setState({
-            isDisabled: true,
-          });
+        this.disableButton(this.state.beerName, this.state.desc);
       },
     );
   };
@@ -86,10 +89,10 @@ class AddNew extends Component {
         <label className="stars">
           <Ratings
             rating={this.state.rating}
-            widgetEmptyColors="rgb(255,239,212)"
-            widgetHoverColors="rgb(173, 21, 21)"
+            widgetEmptyColors={emptyColors}
+            widgetHoverColors={hoverColors}
             changeRating={this.changeTheRating}
-            widgetDimensions='30px'
+            widgetDimensions={dimensions}
           >
             <Ratings.Widget />
             <Ratings.Widget />
@@ -109,13 +112,12 @@ class AddNew extends Component {
     );
   };
 
-  renderImgUpload = field => {
+  renderImgUpload = () => {
     return (
       <div className="file-area">
         <label className="field-label">Image: &nbsp; </label>
         <div className="file-overlay">
           <input
-            onChange={this.handleChange(field)}
             className="file-input"
             type="file"
             accept=".png, .jpeg, .jpg"
@@ -128,22 +130,20 @@ class AddNew extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    let temp = null,
+    let imgName = null,
       file = null;
 
+    //check if there is a filedata object and filedata object is not null
     if (e.target[3].files && e.target[3].files[0]) {
-      temp = e.target[3].files[0].name;
+      imgName = e.target[3].files[0].name;
       file = e.target[3].files[0];
-    } else {
-      temp = null;
-      file = null;
     }
 
     let values = {
-      beerName: e.target[0].value,
-      rating: e.target[1].value,
-      desc: e.target[2].value,
-      img: temp,
+      beerName: this.state.beerName,
+      rating: this.state.rating,
+      desc: this.state.desc,
+      img: imgName,
     };
 
     this.props.addNewBeer(values, file).then(() => {

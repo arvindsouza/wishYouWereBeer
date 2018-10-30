@@ -41,14 +41,10 @@ export function addNewBeer(data, file) {
     .collection('Beers')
     .doc()
     .set(data)
-    .then(() => {
-      return new Promise(resolve => {
-        return resolve('Success');
-      });
-    });
+    .then(() => 'Success');
 
   if (data.img) {
-    var refA = storage.child(data.img);
+    let refA = storage.child(data.img);
     refA.put(file);
   }
 

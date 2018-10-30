@@ -34,6 +34,7 @@ module.exports = {
         "eol-last": [
             "error",
             "always"
-        ]
+        ],
+        "no-var": "error"
     }
 };
