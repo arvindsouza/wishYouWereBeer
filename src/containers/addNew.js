@@ -61,11 +61,8 @@ class AddNew extends Component {
         initialValues={initValues}
         validate={values => {
           let errors = {};
-
           if (!values.beerName) errors.beerName = 'Enter a beer name';
-
           if (!values.desc) errors.desc = 'Enter a description';
-
           return errors;
         }}
         onSubmit={values => {
