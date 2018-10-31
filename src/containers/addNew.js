@@ -21,10 +21,17 @@ const initValues = {
 class AddNew extends Component {
   state = {
     rating: 1,
+    file: '',
   };
 
   changeTheRating = newRating => {
     this.setState({ rating: newRating });
+  };
+
+  setFileName = fileName => {
+    this.setState({
+      file: fileName,
+    });
   };
 
   renderField = (label, field) => {
@@ -124,10 +131,12 @@ class AddNew extends Component {
                     name="img"
                     accept=".png, .jpeg, .jpg"
                     onChange={e => {
+                      this.setFileName(e.currentTarget.files[0].name);
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                   />
                 </div>
+                <div className="file-name">{this.state.file}</div>
               </div>
 
               <Link to="/">Cancel</Link>
