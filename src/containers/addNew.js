@@ -53,22 +53,15 @@ class AddNew extends Component {
   };
 
   onSubmit = values => {
-    let file = null,
-      imgName = null;
+    let file = null;
 
     if (values.file) {
       file = values.file;
-      imgName = values.file.name;
     }
 
-    let uploadObject = {
-      beerName: values.beerName,
-      rating: values.rating,
-      desc: values.desc,
-      img: imgName,
-    };
+    delete values.file;
 
-    this.props.addNewBeer(uploadObject, file).then(() => {
+    this.props.addNewBeer(values, file).then(() => {
       this.props.history.push('/beers');
     });
   };
@@ -82,15 +75,16 @@ class AddNew extends Component {
           this.onSubmit(values);
         }}
       >
-        {({ errors, isValid, setFieldValue }) => (
+        {({ errors, isValid, setFieldValue, touched }) => (
           <div className="form">
             <Form>
               <h1 className="form-label">Add a New Beer</h1>
 
               {this.renderField('Beer name', 'beerName')}
-              {errors.beerName && (
-                <div className="error-message">{errors.beerName}</div>
-              )}
+              {errors.beerName &&
+                touched.beerName && (
+                  <div className="error-message">{errors.beerName}</div>
+                )}
 
               <div className="form-group" id="rating-field">
                 <label className="field-label">Enter the rating</label>
@@ -124,21 +118,22 @@ class AddNew extends Component {
               </div>
 
               {this.renderField('Description', 'desc')}
-              {errors.desc && (
-                <div className="error-message">{errors.desc}</div>
-              )}
+              {errors.desc &&
+                touched.desc && (
+                  <div className="error-message">{errors.desc}</div>
+                )}
 
               <div className="file-area">
                 <label className="field-label">Image: &nbsp; </label>
                 <div className="file-overlay">
-                  <Field
+                  <input
                     className="file-input"
                     type="file"
-                    name="img"
                     accept=".png, .jpeg, .jpg"
                     onInput={e => {
                       this.setFileName(e.currentTarget.files[0].name);
                       setFieldValue('file', e.currentTarget.files[0]);
+                      setFieldValue('img', e.currentTarget.files[0].name);
                     }}
                   />
                 </div>
