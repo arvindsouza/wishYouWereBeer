@@ -21,7 +21,7 @@ const initValues = {
 class AddNew extends Component {
   state = {
     rating: 1,
-    file: '',
+    fileName: '',
   };
 
   changeTheRating = newRating => {
@@ -30,7 +30,7 @@ class AddNew extends Component {
 
   setFileName = fileName => {
     this.setState({
-      file: fileName,
+      fileName,
     });
   };
 
@@ -45,19 +45,30 @@ class AddNew extends Component {
     );
   };
 
+  errorcheck = values => {
+    let errors = {};
+    if (!values.beerName) errors.beerName = 'Enter a beer name';
+    if (!values.desc) errors.desc = 'Enter a description';
+    return errors;
+  };
+
   onSubmit = values => {
-    let imgName = null,
-      file = null;
+    let file = null,
+      imgName = null;
 
     if (values.file) {
-      imgName = values.file.name;
       file = values.file;
+      imgName = values.file.name;
     }
-    values.img = imgName;
 
-    delete values.file;
+    let uploadObject = {
+      beerName: values.beerName,
+      rating: values.rating,
+      desc: values.desc,
+      img: imgName,
+    };
 
-    this.props.addNewBeer(values, file).then(() => {
+    this.props.addNewBeer(uploadObject, file).then(() => {
       this.props.history.push('/beers');
     });
   };
@@ -66,12 +77,7 @@ class AddNew extends Component {
     return (
       <Formik
         initialValues={initValues}
-        validate={values => {
-          let errors = {};
-          if (!values.beerName) errors.beerName = 'Enter a beer name';
-          if (!values.desc) errors.desc = 'Enter a description';
-          return errors;
-        }}
+        validate={values => this.errorcheck(values)}
         onSubmit={values => {
           this.onSubmit(values);
         }}
@@ -82,9 +88,9 @@ class AddNew extends Component {
               <h1 className="form-label">Add a New Beer</h1>
 
               {this.renderField('Beer name', 'beerName')}
-              {errors.beerName ? (
+              {errors.beerName && (
                 <div className="error-message">{errors.beerName}</div>
-              ) : null}
+              )}
 
               <div className="form-group" id="rating-field">
                 <label className="field-label">Enter the rating</label>
@@ -118,9 +124,9 @@ class AddNew extends Component {
               </div>
 
               {this.renderField('Description', 'desc')}
-              {errors.desc ? (
+              {errors.desc && (
                 <div className="error-message">{errors.desc}</div>
-              ) : null}
+              )}
 
               <div className="file-area">
                 <label className="field-label">Image: &nbsp; </label>
@@ -130,13 +136,13 @@ class AddNew extends Component {
                     type="file"
                     name="img"
                     accept=".png, .jpeg, .jpg"
-                    onChange={e => {
+                    onInput={e => {
                       this.setFileName(e.currentTarget.files[0].name);
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                   />
                 </div>
-                <div className="file-name">{this.state.file}</div>
+                <div className="file-name">{this.state.fileName}</div>
               </div>
 
               <Link to="/">Cancel</Link>
