@@ -1,3 +1,5 @@
+/* tslint:disable */
+
 import React, { Component } from 'react';
 import Ratings from 'react-ratings-declarative';
 import { connect } from 'react-redux';
@@ -6,6 +8,8 @@ import { Formik, Form, Field } from 'formik';
 
 import './form.scss';
 import { addNewBeer } from '../actions';
+import { History } from 'history';
+// import { number } from 'prop-types';
 
 const emptyColors = 'rgb(255,239,212)';
 const hoverColors = 'rgb(173, 21, 21)';
@@ -18,24 +22,29 @@ const initValues = {
   img: '',
 };
 
-class AddNew extends Component {
-  state = {
+interface IProps {
+  addNewBeer: (input: any, inputB: any) => any;
+  history: History;
+}
+
+class AddNew extends Component<IProps> {
+  public state: any = {
     rating: 1,
     fileName: '',
   };
 
-  changeTheRating = newRating => {
+  public changeTheRating = (newRating: number) => {
     this.setState({ rating: newRating });
   };
 
-  setFileName = fileName => {
+  public setFileName = (fileName: string) => {
     this.setState({
       fileName,
     });
   };
 
-  renderField = (label, field) => {
-    let classnames = 'form-group';
+  public renderField = (label: string, field: string) => {
+    const classnames = 'form-group';
 
     return (
       <div className={classnames}>
@@ -45,14 +54,21 @@ class AddNew extends Component {
     );
   };
 
-  errorcheck = values => {
-    let errors = {};
-    if (!values.beerName) errors.beerName = 'Enter a beer name';
-    if (!values.desc) errors.desc = 'Enter a description';
+  public errorcheck = (values: any) => {
+    const errors = {
+      beerName: '',
+      desc: '',
+    };
+    if (!values.beerName) {
+      errors.beerName = 'Enter a beer name';
+    }
+    if (!values.desc) {
+      errors.desc = 'Enter a description';
+    }
     return errors;
   };
 
-  onSubmit = values => {
+  public onSubmit = (values: any) => {
     let file = null;
 
     if (values.file) {
@@ -66,7 +82,7 @@ class AddNew extends Component {
     });
   };
 
-  render() {
+  public render() {
     return (
       <Formik
         initialValues={initValues}
@@ -93,7 +109,7 @@ class AddNew extends Component {
                     rating={this.state.rating}
                     widgetEmptyColors={emptyColors}
                     widgetHoverColors={hoverColors}
-                    changeRating={newRating => {
+                    changeRating={(newRating: number) => {
                       this.changeTheRating(newRating);
                       setFieldValue('rating', newRating, false);
                     }}
@@ -130,7 +146,7 @@ class AddNew extends Component {
                     className="file-input"
                     type="file"
                     accept=".png, .jpeg, .jpg"
-                    onInput={e => {
+                    onInput={(e: any) => {
                       this.setFileName(e.currentTarget.files[0].name);
                       setFieldValue('file', e.currentTarget.files[0]);
                       setFieldValue('img', e.currentTarget.files[0].name);

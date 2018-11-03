@@ -3,16 +3,21 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './list.scss';
 
-import { fetchBeers, updateBeer } from '../actions';
+import { fetchBeers } from '../actions';
 import RatingsComponent from '../components/ratings';
 
-class BeerList extends Component {
-  componentDidMount() {
+interface IState {
+  beers: any;
+  fetchBeers: () => void;
+}
+
+class BeerList extends Component<IState> {
+  public componentDidMount() {
     this.props.fetchBeers();
   }
 
-  returnBeerList() {
-    return this.props.beers.map(beer => {
+  public returnBeerList() {
+    return this.props.beers.map((beer: any) => {
       return (
         <div key={beer.id} className="row">
           <div className="beer-name">{beer.data.beerName}</div>
@@ -25,7 +30,7 @@ class BeerList extends Component {
     });
   }
 
-  render() {
+  public render() {
     if (!this.props.beers.length) {
       return <div>Loading...</div>;
     }
@@ -47,11 +52,11 @@ class BeerList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { beers: state.beers };
-}
+const mapStateToProps = (state: any) => ({
+  beers: state.beers,
+});
 
 export default connect(
   mapStateToProps,
-  { fetchBeers, updateBeer },
+  { fetchBeers },
 )(BeerList);

@@ -4,32 +4,34 @@ import Ratings from 'react-ratings-declarative';
 
 import { updateBeer } from '../actions/index';
 
-class RatingsComponent extends Component {
-  getRating = () => {
+interface IProps {
+  beerRating: string;
+  beerId: any;
+  updateBeer: (paramsA: any, paramsB: number) => void;
+}
+
+class RatingsComponent extends Component<IProps> {
+  private getRating = () => {
     return this.props.beerRating;
   };
 
-  constructor(props) {
-    super(props);
+  public state = {
+    rating: this.getRating(),
+  };
 
-    this.state = {
-      rating: this.getRating()
-    };
-  }
-
-  changeRating = (id, rating) => {
+  private changeRating = (id: any, rating: number) => {
     this.props.updateBeer(id, rating);
     this.setState({
       rating,
     });
   };
 
-  render() {
+  public render() {
     return (
       <Ratings
-        rating={parseInt(this.state.rating)}
+        rating={parseInt(this.state.rating, 10)}
         widgetRatedColors="blue"
-        changeRating={rating => {
+        changeRating={(rating: number) => {
           this.changeRating(this.props.beerId, rating);
         }}
       >

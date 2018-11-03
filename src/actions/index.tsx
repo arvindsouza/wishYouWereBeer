@@ -24,11 +24,11 @@ export function fetchBeers() {
   };
 }
 
-export function updateBeer(id, rating) {
+export function updateBeer(id: any, rating: number) {
   const request = db
     .collection('Beers')
     .doc(id)
-    .update({ rating: rating });
+    .update({ rating });
 
   return {
     type: UPDATE_BEER,
@@ -36,7 +36,7 @@ export function updateBeer(id, rating) {
   };
 }
 
-export function addNewBeer(data, file) {
+export function addNewBeer(data: any, file: any) {
   const request = db
     .collection('Beers')
     .doc()
@@ -44,7 +44,7 @@ export function addNewBeer(data, file) {
     .then(() => 'Success');
 
   if (data.img) {
-    let refA = storage.child(data.img);
+    const refA = storage.child(data.img);
     refA.put(file);
   }
 

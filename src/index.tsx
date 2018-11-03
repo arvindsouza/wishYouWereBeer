@@ -1,21 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import './style.scss';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import promise from 'redux-promise';
+import promise from 'redux-promise'
 import reducers from './reducers';
 import { applyMiddleware, createStore } from 'redux';
 
 import BeerList from './containers/beerList';
 import AddNew from './containers/addNew';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const middleware = [ promise ];
+const store = createStore(reducers, applyMiddleware(...middleware));
+// const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Route path="/new" component={AddNew}/>
