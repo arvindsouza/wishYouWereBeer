@@ -13,8 +13,9 @@
    "no-console": false,
    "no-var-requires": false,
    "jsx-no-lambda": [false],
-   "member-ordering": false
-  },
+   "member-ordering": false,
+   "indent": [true, "spaces", 2]
+  },    
   "linterOptions": {
     "exclude": [
       "config/**/*.js",

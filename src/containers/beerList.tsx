@@ -5,11 +5,7 @@ import './list.scss';
 
 import { fetchBeers } from '../actions';
 import RatingsComponent from '../components/ratings';
-
-interface IState {
-  beers: any;
-  fetchBeers: () => void;
-}
+import { IState } from '../interfaces';
 
 class BeerList extends Component<IState> {
   public componentDidMount() {

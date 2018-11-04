@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import './style.scss';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import './style.scss';
 import promise from 'redux-promise'
 import reducers from './reducers';
 import { applyMiddleware, createStore } from 'redux';
@@ -21,7 +21,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path="/new" component={AddNew}/>
-        <Route path="/" component={BeerList} />
+        <Route path="/" component={BeerList}/>
       </Switch>
     </BrowserRouter>
   </Provider>,

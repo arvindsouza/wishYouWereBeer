@@ -1,4 +1,3 @@
-/* tslint:disable */
 
 import React, { Component } from 'react';
 import Ratings from 'react-ratings-declarative';
@@ -8,8 +7,7 @@ import { Formik, Form, Field } from 'formik';
 
 import './form.scss';
 import { addNewBeer } from '../actions';
-import { History } from 'history';
-// import { number } from 'prop-types';
+import { IProps } from '../interfaces'
 
 const emptyColors = 'rgb(255,239,212)';
 const hoverColors = 'rgb(173, 21, 21)';
@@ -21,11 +19,6 @@ const initValues = {
   desc: '',
   img: '',
 };
-
-interface IProps {
-  addNewBeer: (input: any, inputB: any) => any;
-  history: History;
-}
 
 class AddNew extends Component<IProps> {
   public state: any = {
@@ -55,10 +48,8 @@ class AddNew extends Component<IProps> {
   };
 
   public errorcheck = (values: any) => {
-    const errors = {
-      beerName: '',
-      desc: '',
-    };
+    const errors = {} as any;
+
     if (!values.beerName) {
       errors.beerName = 'Enter a beer name';
     }
@@ -129,7 +120,7 @@ class AddNew extends Component<IProps> {
                   value={this.state.rating}
                   id="the-rating"
                   name="rating"
-                  readOnly
+                  readOnly={true}
                 />
               </div>
 
