@@ -1,5 +1,6 @@
 import { config, storage } from '../config';
 import firebase from 'firebase';
+import { FormikValues } from 'formik';
 
 export const FETCH_BEER = 'FETCH_BEER';
 export const UPDATE_BEER = 'UPDATE_BEER';
@@ -24,7 +25,7 @@ export function fetchBeers() {
   };
 }
 
-export function updateBeer(id: any, rating: number) {
+export function updateBeer(id: string, rating: number) {
   const request = db
     .collection('Beers')
     .doc(id)
@@ -36,7 +37,7 @@ export function updateBeer(id: any, rating: number) {
   };
 }
 
-export function addNewBeer(data: any, file: any) {
+export function addNewBeer(data: FormikValues, file: File) {
   const request = db
     .collection('Beers')
     .doc()

@@ -1,13 +1,12 @@
-
-import React, { Component } from 'react';
+import React, { Component, FormEvent } from 'react';
 import Ratings from 'react-ratings-declarative';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikValues } from 'formik';
 
 import './form.scss';
 import { addNewBeer } from '../actions';
-import { IProps } from '../interfaces'
+import { IProps, Ierrors } from '../interfaces';
 
 const emptyColors = 'rgb(255,239,212)';
 const hoverColors = 'rgb(173, 21, 21)';
@@ -21,7 +20,7 @@ const initValues = {
 };
 
 class AddNew extends Component<IProps> {
-  public state: any = {
+  public state = {
     rating: 1,
     fileName: '',
   };
@@ -47,8 +46,8 @@ class AddNew extends Component<IProps> {
     );
   };
 
-  public errorcheck = (values: any) => {
-    const errors = {} as any;
+  public errorcheck = (values: FormikValues) => {
+    const errors = {} as Ierrors;
 
     if (!values.beerName) {
       errors.beerName = 'Enter a beer name';
@@ -59,7 +58,7 @@ class AddNew extends Component<IProps> {
     return errors;
   };
 
-  public onSubmit = (values: any) => {
+  public onSubmit = (values: FormikValues) => {
     let file = null;
 
     if (values.file) {
@@ -137,10 +136,12 @@ class AddNew extends Component<IProps> {
                     className="file-input"
                     type="file"
                     accept=".png, .jpeg, .jpg"
-                    onInput={(e: any) => {
-                      this.setFileName(e.currentTarget.files[0].name);
-                      setFieldValue('file', e.currentTarget.files[0]);
-                      setFieldValue('img', e.currentTarget.files[0].name);
+                    onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                      if (e.currentTarget.files != null) {
+                        this.setFileName(e.currentTarget.files[0].name);
+                        setFieldValue('file', e.currentTarget.files[0]);
+                        setFieldValue('img', e.currentTarget.files[0].name);
+                      }
                     }}
                   />
                 </div>

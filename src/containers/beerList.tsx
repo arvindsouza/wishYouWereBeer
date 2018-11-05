@@ -5,7 +5,7 @@ import './list.scss';
 
 import { fetchBeers } from '../actions';
 import RatingsComponent from '../components/ratings';
-import { IState } from '../interfaces';
+import { IState, Idata, IreduxState } from '../interfaces';
 
 class BeerList extends Component<IState> {
   public componentDidMount() {
@@ -13,7 +13,7 @@ class BeerList extends Component<IState> {
   }
 
   public returnBeerList() {
-    return this.props.beers.map((beer: any) => {
+    return this.props.beers.map((beer: Idata) => {
       return (
         <div key={beer.id} className="row">
           <div className="beer-name">{beer.data.beerName}</div>
@@ -48,7 +48,7 @@ class BeerList extends Component<IState> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: IreduxState) => ({
   beers: state.beers,
 });
 

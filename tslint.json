@@ -13,7 +13,7 @@
    "no-console": false,
    "no-var-requires": false,
    "jsx-no-lambda": [false],
-   "member-ordering": false,
+   "no-any": true,
    "indent": [true, "spaces", 2]
   },    
   "linterOptions": {

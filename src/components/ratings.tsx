@@ -3,33 +3,21 @@ import { connect } from 'react-redux';
 import Ratings from 'react-ratings-declarative';
 
 import { updateBeer } from '../actions/index';
+import { IRatingsProps } from '../interfaces';
 
-interface IProps {
-  beerRating: string;
-  beerId: any;
-  updateBeer: (paramsA: any, paramsB: number) => void;
-}
-
-class RatingsComponent extends Component<IProps> {
-  private getRating = () => {
-    return this.props.beerRating;
-  };
-
+class RatingsComponent extends Component<IRatingsProps> {
   public state = {
-    rating: this.getRating(),
+    rating: 1
   };
-
-  private changeRating = (id: any, rating: number) => {
-    this.props.updateBeer(id, rating);
-    this.setState({
-      rating,
-    });
+  
+  public getRating = () => {
+    this.setState ({rating: this.props.beerRating});
   };
 
   public render() {
     return (
       <Ratings
-        rating={parseInt(this.state.rating, 10)}
+        rating={this.state.rating}
         widgetRatedColors="blue"
         changeRating={(rating: number) => {
           this.changeRating(this.props.beerId, rating);
@@ -43,6 +31,14 @@ class RatingsComponent extends Component<IProps> {
       </Ratings>
     );
   }
+
+  private changeRating = (id: string, rating: number) => {
+    this.props.updateBeer(id, rating);
+    this.setState({
+      rating,
+    });
+  };
+
 }
 
 export default connect(
