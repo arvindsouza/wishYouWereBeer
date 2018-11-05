@@ -3,16 +3,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './list.scss';
 
-import { fetchBeers, updateBeer } from '../actions';
+import { fetchBeers } from '../actions';
 import RatingsComponent from '../components/ratings';
+import { IData, IReduxState } from '../interfaces';
 
-class BeerList extends Component {
-  componentDidMount() {
+export interface IProps {
+  beers: IData[];
+  fetchBeers: () => void;
+}
+
+class BeerList extends Component<IProps> {
+  public componentDidMount() {
     this.props.fetchBeers();
   }
 
-  returnBeerList() {
-    return this.props.beers.map(beer => {
+  public returnBeerList() {
+    return this.props.beers.map((beer: IData) => {
       return (
         <div key={beer.id} className="row">
           <div className="beer-name">{beer.data.beerName}</div>
@@ -25,7 +31,7 @@ class BeerList extends Component {
     });
   }
 
-  render() {
+  public render() {
     if (!this.props.beers.length) {
       return <div>Loading...</div>;
     }
@@ -47,11 +53,11 @@ class BeerList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { beers: state.beers };
-}
+const mapStateToProps = (state: IReduxState) => ({
+  beers: state.beers,
+});
 
 export default connect(
   mapStateToProps,
-  { fetchBeers, updateBeer },
+  { fetchBeers },
 )(BeerList);
