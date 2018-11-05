@@ -7,11 +7,7 @@ import { IRatingsProps } from '../interfaces';
 
 class RatingsComponent extends Component<IRatingsProps> {
   public state = {
-    rating: 1
-  };
-  
-  public getRating = () => {
-    this.setState ({rating: this.props.beerRating});
+    rating: this.props.beerRating
   };
 
   public render() {
