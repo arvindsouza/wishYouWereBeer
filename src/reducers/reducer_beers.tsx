@@ -1,7 +1,7 @@
 import { FETCH_BEER } from '../actions';
-import { Iaction } from '../interfaces'
+import { IAction } from '../interfaces';
 
-export default function(state = {}, action: Iaction) {
+export default function(state = {}, action: IAction) {
   switch (action.type) {
     case FETCH_BEER: {
       return action.payload;

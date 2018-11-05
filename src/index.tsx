@@ -3,19 +3,16 @@ import * as ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-import './style.scss';
 import promise from 'redux-promise'
-import reducers from './reducers';
 import { applyMiddleware, createStore, compose } from 'redux';
-import thunk from 'redux-thunk';
 
+import reducers from './reducers';
+import './style.scss';
 import BeerList from './containers/beerList';
 import AddNew from './containers/addNew';
 
-const middleware = [ promise, thunk ];
+const middleware = [ promise ];
 const store = createStore(reducers, compose(applyMiddleware(...middleware)));
-// const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
   <Provider store={store}>

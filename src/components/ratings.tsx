@@ -3,10 +3,20 @@ import { connect } from 'react-redux';
 import Ratings from 'react-ratings-declarative';
 
 import { updateBeer } from '../actions/index';
-import { IRatingsProps } from '../interfaces';
+import { IAction } from '../interfaces';
 
-class RatingsComponent extends Component<IRatingsProps> {
-  public state = {
+interface IRatingsProps {
+  beerRating: number;
+  beerId: string;
+  updateBeer: (id: string, rating: number) => IAction;
+}
+
+interface ILocalState{
+  rating: number
+}
+
+class RatingsComponent extends Component<IRatingsProps, ILocalState> {
+  public state: ILocalState = {
     rating: this.props.beerRating
   };
 

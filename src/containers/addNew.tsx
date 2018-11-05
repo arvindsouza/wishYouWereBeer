@@ -1,12 +1,13 @@
-import React, { Component, FormEvent } from 'react';
+import React, { Component } from 'react';
 import Ratings from 'react-ratings-declarative';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Formik, Form, Field, FormikValues } from 'formik';
+import { Formik, Form, Field, FormikValues, FormikErrors } from 'formik';
+import { History } from 'history';
 
 import './form.scss';
 import { addNewBeer } from '../actions';
-import { IProps, Ierrors } from '../interfaces';
+import { IErrors } from '../interfaces';
 
 const emptyColors = 'rgb(255,239,212)';
 const hoverColors = 'rgb(173, 21, 21)';
@@ -19,8 +20,18 @@ const initValues = {
   img: '',
 };
 
-class AddNew extends Component<IProps> {
-  public state = {
+interface IProps {
+  addNewBeer: (beer: FormikValues, img: File) => any;
+  history: History;
+}
+
+interface ILocalState {
+  rating: number;
+  fileName: string;
+}
+
+class AddNew extends Component<IProps, ILocalState> {
+  public state: ILocalState = {
     rating: 1,
     fileName: '',
   };
@@ -47,7 +58,7 @@ class AddNew extends Component<IProps> {
   };
 
   public errorcheck = (values: FormikValues) => {
-    const errors = {} as Ierrors;
+    const errors = {} as FormikErrors<IErrors>;
 
     if (!values.beerName) {
       errors.beerName = 'Enter a beer name';
@@ -137,7 +148,7 @@ class AddNew extends Component<IProps> {
                     type="file"
                     accept=".png, .jpeg, .jpg"
                     onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                      if (e.currentTarget.files != null) {
+                      if (e.currentTarget.files !== null) {
                         this.setFileName(e.currentTarget.files[0].name);
                         setFieldValue('file', e.currentTarget.files[0]);
                         setFieldValue('img', e.currentTarget.files[0].name);

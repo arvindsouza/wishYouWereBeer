@@ -45,8 +45,8 @@ export function addNewBeer(data: FormikValues, file: File) {
     .then(() => 'Success');
 
   if (data.img) {
-    const refA = storage.child(data.img);
-    refA.put(file);
+    const storageRef = storage.child(data.img);
+    storageRef.put(file);
   }
 
   return {

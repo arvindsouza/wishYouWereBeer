@@ -1,44 +1,25 @@
-import { History } from 'history';
-import { FormikValues } from 'formik';
-
-export interface IbeerObject{
+export interface IBeerObject{
   beerName: string,
   desc: string,
   img: string,
   rating: number
 }
 
-export interface Idata{
+export interface IData{
   id: string,
-  data: IbeerObject
+  data: IBeerObject
 }
 
- export interface Iaction{
+export interface IAction{
   type: string,
   payload: any
 }
 
-export interface IProps {
-  addNewBeer: (beer: FormikValues, img: File) => any
-  history: History;
+export interface IReduxState{
+  beers: IData[]
 }
 
-export interface IState {
-  beers: Idata[];
-  fetchBeers: () => void;
-}
-
-export interface IRatingsProps {
-  beerRating: number;
-  beerId: string;
-  updateBeer: (id: string, rating: number) => Iaction;
-}
-
-export interface Ierrors{
+export interface IErrors{
   beerName: string,
   desc: string
-}
-
-export interface IreduxState{
-  beers: Idata[]
 }
